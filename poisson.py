@@ -14,9 +14,9 @@ style.use('fivethirtyeight')
 #left == x #pmf
 #plt.bar(x=np.arange(100), height=(stats.poisson.pmf(np.arange(100), mu=20)), width=0.75, alpha=0.75)
 #需要量
-k = 200
-n = 100
-t = 5
+k = 500
+n = 1000
+t = 10
 p = k/n
 
 count = 0
@@ -38,7 +38,7 @@ for p in pp :
     temp = 0
     num = 0
     bbb = []
-    for kk in range(int(k - 3*ko), int(k + 3*ko), 1) : #平均值往上下找三個標準差  同p不同k
+    for kk in range(int(k - 1*ko), int(k + 2*ko), 1) : #平均值往上下找三個標準差  同p不同k
         b = stats.poisson.pmf(kk, mu)  #計算此k下此p機率
         temp = temp + b
         bbb.append(b) #此p下不同k總計
