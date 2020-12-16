@@ -14,9 +14,9 @@ style.use('fivethirtyeight')
 #left == x #pmf
 #plt.bar(x=np.arange(100), height=(stats.poisson.pmf(np.arange(100), mu=20)), width=0.75, alpha=0.75)
 #需要量
-k = 500
-n = 1000
-t = 10
+k = 100
+n = 50
+t = 5
 p = k/n
 
 count = 0

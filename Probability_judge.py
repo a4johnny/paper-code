@@ -14,7 +14,7 @@ kp = 1 # 原本是 0.0001 不過這裡放大 10000 倍
 low = 0
 lowlist = []
 largelist = []
-for i in range(100) : #做二十次
+for i in range(100) : #做100次
     count = 0
     partlist = []
     nextPlist = []
@@ -48,3 +48,15 @@ for i in range(100) : #做二十次
 print(low)
 print(lowlist)
 print(largelist)
+
+temp = 0
+for i in lowlist :
+    temp = temp + i
+ave = temp/len(lowlist)
+print(ave)
+
+temp = 0
+for i in largelist :
+    temp = temp + i
+ave = temp/len(largelist)
+print(ave)
