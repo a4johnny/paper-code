@@ -14,23 +14,26 @@ kp = 1 # 原本是 0.0001 不過這裡放大 10000 倍
 low = 0
 lowlist = []
 largelist = []
+coverageAll = []
+
+lifenumlist = [] #all data life time
+lifetime = {}
+for num in range(200):  # lifetime 初始化
+    lifetime[num] = -1
+
 for i in range(100) : #做100次
     count = 0
     partlist = []
     nextPlist = []
     plist = []
     coveragelist = []
-    lifenumlist = []
     p = 4000
-    lifetime = {}
-    for num in range(200): #lifetime 初始化
-        lifetime[num] = -1
 
     for ii in range(5) : #5個time slot
         NowIsEmpty = [] #紀錄 那些life以扣光 位置要填補
         lifenum = 0 #現有數量
         totalLife = 0
-        if ii != 0: #第二輪開始資料衰減
+        if (ii != 0 and i == 0) or (i != 0): #第二輪開始資料衰減
             for num in range(200):
                 if lifetime[num] == -1 or lifetime[num] == 0:
                     lifetime[num] = -1
@@ -46,6 +49,7 @@ for i in range(100) : #做100次
                     if lifetime[num] == -1:
                         lifetime[num] = 5
                         break
+
         partlist.append(count)
         #校正P
         nextP = 0
@@ -61,6 +65,7 @@ for i in range(100) : #做100次
         coverage = lifenum/100 - (1 - totalLife/(5*100))*0.01
         lifenumlist.append(lifenum)
         coveragelist.append(round(coverage, 4))
+        coverageAll.append(round(coverage, 4))
 
     if count < 100 :
         low = low + 1
@@ -96,3 +101,38 @@ if len(largelist) != 0:
 else:
     ave = temp/1
 print(ave)
+
+temp = 0
+temp1 = 0
+lowlist = []
+lowlistMinus = []
+biglist = []
+biglistMinus = []
+low98 = 0
+low95 = 0
+for i in lifenumlist :
+    if i < 100:
+        temp = temp + i
+        lowlist.append(i)
+        if i < 98:
+            low98 += 1
+        if i < 95:
+            low95 += 1
+        lowlistMinus.append(100-i)
+    elif i >= 100:
+        temp1 = temp1 + i
+        biglist.append(i)
+        biglistMinus.append(i-100)
+
+print("lowlist:", lowlist)
+print("lowave:", temp/len(lowlist))
+print("lownum", len(lowlist))
+print("low than 98 >", low98)
+print("low than 95 >", low95)
+print("biglist:", biglist)
+print("bigave:", temp1/len(biglist))
+print("bignum", len(biglist))
+print("coverage:", coverageAll)
+
+a = plt.plot(np.arange(500), lifenumlist)
+plt.show()
