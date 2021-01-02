@@ -6,10 +6,8 @@ import math
 import random
 from IPython.core.display import HTML
 
-fu = 0
-p = 4200
+p = 4000
 needK = 2000 # k=2000
-originK = 2000
 n = 1000 # n=1000 人數
 needpartK = needK/5
 countlist = []
@@ -20,14 +18,15 @@ largelist = []
 coverageAll = []
 lifenumlist = [] #all data life time
 lifetime = {}
+
+type = input("type2 : nothing\ntype1 : only previous ref\n")
+
 lifetimesum = needK*3/2
 for num in range(int(lifetimesum)):  # lifetime 初始化  *3 放收集到資料的lifetime
     lifetime[num] = -1
 
 coveragelist = []
 coverage = 1
-nownum = 0
-lastcoverage = 1
 for i in range(100) : #做100次
     count = 0
     partlist = []
@@ -40,7 +39,7 @@ for i in range(100) : #做100次
             Covcount = Covcount + i
         lastCovAve = Covcount/5
     coveragelist = []
-    nowlifenumlist = []
+
     for ii in range(5) : #5個time slot
         NowIsEmpty = [] #紀錄 那些life以扣光 位置要填補
         lifenum = 0 #現有數量
@@ -65,64 +64,37 @@ for i in range(100) : #做100次
         partlist.append(count)
 
         if i != 0 :
-            coverage = lifenum/needK - (1 - totalLife/(5*needK))*(1/needK)  #(永遠0.01?)
+            coverage = lifenum/needK - (1 - totalLife/(5*needK))*0.01
             coveragelist.append(round(coverage, 4))
             coverageAll.append(round(coverage, 4))
         lifenumlist.append(lifenum)
-        nowlifenumlist.append(lifenum)
         #校正P
         nextP = 0
-        if count >= needpartK * (ii+1) and i != 0:
-            nextP = (needK / count) * (1/ (5-ii) ) * (count - needpartK*(ii+1)*(1/coverage)*1.6) * -1 * kp
-            # (1/ (5-ii) )
-        elif count < needpartK * (ii+1) and i != 0:
-            nextP = 12 * (needK / count) * (1 / (5-ii) ) * (needpartK*(ii+1)*(1/coverage)*1.6 - count) * kp
-        elif count >= needpartK * (ii+1) :
-            nextP = (needK / count) * (1/ (5-ii) ) * (count - needpartK*(ii+1)) * -1 * kp
-        elif count < needpartK * (ii+1) :
-            nextP = 12 * (needK / count) * (1 / (5-ii) ) * (needpartK*(ii+1) - count ) * kp
-
-
-        #if i >= 1 and len(coverageAll) > 10:
-            #if abs(coverageAll[len(coverageAll)-1] - coverageAll[len(coverageAll)-2]) < 0.06 and fu == 0:
-                #needK = needK * (1/lastcoverage)
-               # fu = 1
-            #------------------------------------
-                #if lifenum > needK:
-                    #needK2 = needK * (1/lastcoverage)
-                    #needpartK = needK2/5
-                #elif lifenum <= needK:
-                 #   needK2 = needK2 * lastcoverage
-                  #  needpartK = needK2/5
-                #fu = 1
+        if int(type) == 1:
+            if count >= needpartK * (ii+1) and i != 0:
+                nextP = (count - needpartK*(ii+1)) * -1 * kp
+                # (1/ (5-ii) )
+            elif count < needpartK * (ii+1) and i != 0:
+                nextP = (needpartK*(ii+1) - count) * kp
+        elif int(type) == 2:
+            nextP = 0
 
         nextPlist.append(round(nextP/10000, 5))
         p = p + round(nextP, 0) #round 四捨五入
         plist.append(round(p/10000, 5))
-        nowneed = needpartK * (ii+1) * (1/coverage)*1.6
-        if i >= 1 and len(coverageAll) > 3:
-            cov = abs(coverageAll[len(coverageAll)-1] - coverageAll[len(coverageAll)-2])
-            print("nowneed:", nowneed, "count:", count, "?:", needpartK, cov)
-        else:
-            print("nowneed:", nowneed, "count:", count, "?:", needpartK)
 
-    if count < needK :
+    if count < needK:
         low = low + 1
         lowlist.append(needK - count)
-    elif count >= needK :
+    elif count >= needK:
         largelist.append(count - needK)
-
 
     print("partlist: ", partlist)
     print("nextPlist: ", nextPlist)
     print("plist", plist)
-    #print("count", count)
-    #print("lifenum:", lifenumlist)
-    print("nowlifenum:", nowlifenumlist)
+    print("count", count)
+    print("lifenum:", lifenumlist)
     print("coverage:", coveragelist)
-    print("num:", nownum)
-    nownum += 1
-    lastcoverage = coverage
     print("----------------------------")
 print(low)
 print(lowlist)
@@ -188,4 +160,3 @@ print("coverage:", coverageAll)
 a = plt.plot(np.arange(500), lifenumlist)
 plt.show()
 
-# next plan 看每個 cycle 最後的coverage 來調係數? yep
