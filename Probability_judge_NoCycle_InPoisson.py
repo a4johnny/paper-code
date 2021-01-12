@@ -5,15 +5,18 @@ import matplotlib.style as style
 import math
 import random
 from IPython.core.display import HTML
+import poisson_newType as poi
 
 fu = 0
-p = 1000
-needK = 1000 # k=2000
-originK = 2000
-n = 2000 # n=1000 人數
+#p = 1050
+p = poi.Pcal(0)
+trueP = p
+needK = 1500 # k=2000
+originK = 1500
+n = 3000 # n=1000 人數
 needpartK = needK/5
 countlist = []
-kp = 1 # 原本是 0.0001 不過這裡放大 10000 倍
+kp = 0.1 # 原本是 0.0001 不過這裡放大 10000 倍
 low = 0
 lowlist = []
 largelist = []
@@ -41,6 +44,8 @@ for i in range(100) : #做100次
         lastCovAve = Covcount/5
     coveragelist = []
     nowlifenumlist = []
+    deltaP = 0
+    deltaPlist = []
     for ii in range(5) : #5個time slot
         NowIsEmpty = [] #紀錄 那些life以扣光 位置要填補
         lifenum = 0 #現有數量
@@ -72,39 +77,36 @@ for i in range(100) : #做100次
         nowlifenumlist.append(lifenum)
         #校正P
         nextP = 0
+        if coverage == 0:
+            coverage = 1
         if count >= needpartK * (ii+1) and i != 0:
-            nextP = (needK / count) * (1/ (5-ii) ) * (count - needpartK*(ii+1)*(1/coverage)*1.6) * -1 * kp
+            nextP = ((needpartK*(ii+1)) / count) * (count - needpartK*(ii+1)*(1/coverage)*1.3) * -1 * kp
             # (1/ (5-ii) )
         elif count < needpartK * (ii+1) and i != 0:
-            nextP = 12 * (needK / count) * (1 / (5-ii) ) * (needpartK*(ii+1)*(1/coverage)*1.6 - count) * kp
+            nextP = ((needpartK*(ii+1)) / count) * (needpartK*(ii+1)*(1/coverage)*1.3 - count) * kp
+
         elif count >= needpartK * (ii+1) :
-            nextP = (needK / count) * (1/ (5-ii) ) * (count - needpartK*(ii+1)) * -1 * kp
+            nextP = (needpartK*(ii+1) / count) * (count - needpartK*(ii+1)) * -1 * kp
+
         elif count < needpartK * (ii+1) :
-            nextP = 12 * (needK / count) * (1 / (5-ii) ) * (needpartK*(ii+1) - count ) * kp
+            nextP =  (needpartK*(ii+1) / count) * (needpartK*(ii+1) - count ) * kp
 
-
-        #if i >= 1 and len(coverageAll) > 10:
-            #if abs(coverageAll[len(coverageAll)-1] - coverageAll[len(coverageAll)-2]) < 0.06 and fu == 0:
-                #needK = needK * (1/lastcoverage)
-               # fu = 1
-            #------------------------------------
-                #if lifenum > needK:
-                    #needK2 = needK * (1/lastcoverage)
-                    #needpartK = needK2/5
-                #elif lifenum <= needK:
-                 #   needK2 = needK2 * lastcoverage
-                  #  needpartK = needK2/5
-                #fu = 1
-
+        print("nextP:", nextP)
         nextPlist.append(round(nextP/10000, 5))
-        p = p + round(nextP, 0) #round 四捨五入
+        if ii == 4:
+            p = poi.Pcal(deltaP) #round 四捨五入
+            print(p)
+        elif ii < 4:
+            deltaP = deltaP + nextP
+            deltaPlist.append(deltaP)
+
         plist.append(round(p/10000, 5))
-        nowneed = needpartK * (ii+1) * (1/coverage)*1.6
-        if i >= 1 and len(coverageAll) > 3:
+        nowneed = needpartK * (ii+1) * (1/coverage)*1.3
+        if i >= 1 and len(coverageAll) > 1:
             cov = abs(coverageAll[len(coverageAll)-1] - coverageAll[len(coverageAll)-2])
-            print("nowneed:", nowneed, "count:", count, "?:", needpartK, cov)
+            print("nowneed:", nowneed, "count:", (needpartK*(ii+1)) / count)
         else:
-            print("nowneed:", nowneed, "count:", count, "?:", needpartK)
+            print("nowneed:", nowneed, "count:", (needpartK*(ii+1)) / count)
 
     if count < needK :
         low = low + 1
@@ -123,6 +125,7 @@ for i in range(100) : #做100次
     print("num:", nownum)
     nownum += 1
     lastcoverage = coverage
+    print("deltaP:", deltaPlist)
     print("----------------------------")
 print(low)
 print(lowlist)
@@ -187,5 +190,3 @@ print("coverage:", coverageAll)
 
 a = plt.plot(np.arange(500), lifenumlist)
 plt.show()
-
-# next plan 看每個 cycle 最後的coverage 來調係數? yep
