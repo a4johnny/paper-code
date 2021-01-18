@@ -18,7 +18,7 @@ def newCoverageFC (lifenumlist, life):
             life = life - (newi * lifenumlist[newi])
             countnum = countnum + lifenumlist[newi]
 
-    coverage2 = life/ (5 * countnum)
+    coverage2 = life/ (5 * countnum *4)
     return coverage2
 
 fu = 0
@@ -103,22 +103,22 @@ for i in range(100) : #做100次
         if coverage == 0:
             coverage = 1
         if count >= needpartK * (ii+1) and i != 0:
-            nextP = ((needpartK*(ii+1)) / count) * (count - needpartK*(ii+1)*(1/coverage)*1.3) * -1 * kp
+            nextP = ((needpartK*(ii+1)) / count) * (count - needpartK*(ii+1)*(1/coverage)*1.3) * -1
             # (1/ (5-ii) )
         elif count < needpartK * (ii+1) and i != 0:
-            nextP = ((needpartK*(ii+1)) / count) * (needpartK*(ii+1)*(1/coverage)*1.3 - count) * kp
+            nextP = ((needpartK*(ii+1)) / count) * (needpartK*(ii+1)*(1/coverage)*1.3 - count)
 
         elif count >= needpartK * (ii+1) :
-            nextP = (needpartK*(ii+1) / count) * (count - needpartK*(ii+1)) * -1 * kp
+            nextP = (needpartK*(ii+1) / count) * (count - needpartK*(ii+1)) * -1
 
         elif count < needpartK * (ii+1) :
-            nextP =  (needpartK*(ii+1) / count) * (needpartK*(ii+1) - count ) * kp
+            nextP =  (needpartK*(ii+1) / count) * (needpartK*(ii+1) - count )
 
         print("nextP:", nextP)
         nextPlist.append(round(nextP/10000, 5))
         if ii == 4:
             Newcoverage = newCoverageFC(lifenum2, totalLife)
-            deltaP2 = (1/coverage) * (Newcoverage + (needK - lifenum)/needK ) * deltaP
+            deltaP2 = (1/coverage) * (Newcoverage + (needK - lifenum)/needK) * deltaP
             p = poi.Pcal(deltaP2) #round 四捨五入
             print("deltaP2:", deltaP2)
             print(p)

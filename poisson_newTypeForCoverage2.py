@@ -8,7 +8,7 @@ from IPython.core.display import HTML
 def Pcal (delp):
     style.use('fivethirtyeight')
 
-    k = 1500 + int(delp)
+    k = int(delp)
     n = 3000
     t = 5
     p = k/n
@@ -43,5 +43,5 @@ def Pcal (delp):
                 thePP = p
         bb2.append(temp) #紀錄
 
-    print("thePP : ", thePP)
+    print("thePP2 : ", thePP)
     return int(thePP*10000)
