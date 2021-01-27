@@ -7,17 +7,18 @@ import math
 import random
 from IPython.core.display import HTML
 import poisson_oneTOmany as poi
-LT = 5  #最長 lifetime
+LT = 15 #最長 lifetime
 
 def newCoverageFC (lifenumlist, life):
-    countnum = 0
-    for newi in range(LT):
-        if newi == 0 or newi >= 5:
+    countnum = 0  #處理計算方式
+    for newi in range(LT+1):
+        if newi == 0 :
+            life = life
+        elif newi >= 5:
             life = life - (5 * lifenumlist[LT])
-            countnum = countnum + lifenumlist[LT]
         elif newi < 5 and newi != 0:
             life = life - (newi * lifenumlist[newi])
-
+    print(lifenumlist)
     coverage2 = countnum / needK - (1 - life / (LT * needK)) * (1 / needK)
     print("coutnum:", countnum)
     print("life:", life)
@@ -34,7 +35,7 @@ if __name__ == '__main__':
     n = 3000 # n=1000 人數
     needpartK = needK/5
     countlist = []
-    kp = 0.1 # 原本是 0.0001 不過這裡放大 10000 倍
+    kp = 0.3 # 原本是 0.0001 不過這裡放大 10000 倍
     low = 0
     lowlist = []
     largelist = []
@@ -42,6 +43,7 @@ if __name__ == '__main__':
     lifenumlist = [] #all data life time
     lifetime = {}
     lifetimesum = needK*3
+    LTkeep = 1
     for num in range(int(lifetimesum)):  # lifetime 初始化  *3 放收集到資料的lifetime
         lifetime[num] = -1
 
@@ -79,7 +81,7 @@ if __name__ == '__main__':
                         lifetime[num] = lifetime[num] - 1
                         totalLife = totalLife + lifetime[num]
                         lifenum = lifenum + 1
-                        if i == 4:
+                        if ii == 4:
                             for num2 in range(LT):
                                 if num2 == 0:
                                     continue
@@ -111,36 +113,43 @@ if __name__ == '__main__':
                 if coverage == 0:
                     coverage = 1
                 if count >= needpartK * (ii+1) and i != 0:
-                    nextP = ((needpartK*(ii+1)) / count) * (count - needpartK*(ii+1)*(1/coverage)*1.3) * -1 * kp
+                    nextP = needpartK*(ii+1) - count
                     # (1/ (5-ii) )
                 elif count < needpartK * (ii+1) and i != 0:
-                    nextP = ((needpartK*(ii+1)) / count) * (needpartK*(ii+1)*(1/coverage)*1.3 - count) * kp
+                    nextP = needpartK*(ii+1) - count
 
                 elif count >= needpartK * (ii+1) :
-                    nextP = (needpartK*(ii+1) / count) * (count - needpartK*(ii+1)) * -1 * kp
+                    nextP = needpartK*(ii+1) - count
 
                 elif count < needpartK * (ii+1) :
-                    nextP = (needpartK*(ii+1) / count) * (needpartK*(ii+1) - count ) * kp
+                    nextP = needpartK*(ii+1) - count
 
             print("nextP:", nextP)
             nextPlist.append(round(nextP/10000, 5))
             if ii == 4:
                 Newcoverage = newCoverageFC(lifenum2, totalLife)
-                deltaP2 = (1/coverage) * (coverage - Newcoverage) * deltaP
+                if LTkeep == 1:
+                    deltaP2 = (1/coverage) * deltaP
+                    LTkeep += 1
+                elif LTkeep == (LT/5):
+                    deltaP2 = deltaP2
+                    LTkeep = 1
                 if Newcoverage <= 0:
-                    k1 = needK + 0.1 * (needK * (1 - coverage)) + int(deltaP2)
+                    k1 = needK * (1 - Newcoverage) * 1 + int(deltaP2) * kp
                 elif Newcoverage >= 1:
                     #k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
                     k1 = 0
                 elif 0 < Newcoverage < 1:
                     #k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
-                    k1 = needK * (1 + (1 - Newcoverage) * 0.01) + 0.1 * (needK * (1 - coverage)) + int(deltaP2)
+                    k1 = needK * (1 - Newcoverage) * 1 + int(deltaP2) * kp
                 print("k1", k1)
+                if k1 < 0:
+                    k1 == 0
                 p = poi.Pcal(k1) #round 四捨五入
                 print("newcoverage:", Newcoverage)
                 print("deltaP2:", deltaP2)
-                print("deltaP3:", 1 + (1 - Newcoverage) * 0.1)
-                print("deltaP4:", 0.1 * (needK * (1 - coverage)))
+                print("deltaP3:", needK * (1 - Newcoverage))
+                print("deltaP4:", int(deltaP2) * kp)
                 print(p)
             elif ii < 4:
                 if count == 0 and ii == 0:
