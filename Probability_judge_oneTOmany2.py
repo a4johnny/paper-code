@@ -7,16 +7,17 @@ import math
 import random
 from IPython.core.display import HTML
 import poisson_oneTOmany as poi
-LT = 15 #最長 lifetime
+LT = 5 #最長 lifetime
 
 def newCoverageFC (lifenumlist, life):
     countnum = 0  #處理計算方式
     for newi in range(LT+1):
-        if newi == 0 :
+        if newi == 0:
             life = life
-        elif newi >= 5:
-            life = life - (5 * lifenumlist[LT])
-        elif newi < 5 and newi != 0:
+        elif newi >= 6:
+            life = life - (5 * lifenumlist[newi])
+            countnum = countnum + lifenumlist[newi]
+        elif newi <= 5 and newi != 0:
             life = life - (newi * lifenumlist[newi])
     print(lifenumlist)
     coverage2 = countnum / needK - (1 - life / (LT * needK)) * (1 / needK)
@@ -135,16 +136,16 @@ if __name__ == '__main__':
                     deltaP2 = deltaP2
                     LTkeep = 1
                 if Newcoverage <= 0:
-                    k1 = needK * (1 - Newcoverage) * 1 + int(deltaP2) * kp
+                    k1 = needK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
                 elif Newcoverage >= 1:
                     #k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
                     k1 = 0
                 elif 0 < Newcoverage < 1:
                     #k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
-                    k1 = needK * (1 - Newcoverage) * 1 + int(deltaP2) * kp
+                    k1 = needK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
                 print("k1", k1)
                 if k1 < 0:
-                    k1 == 0
+                    k1 = 0
                 p = poi.Pcal(k1) #round 四捨五入
                 print("newcoverage:", Newcoverage)
                 print("deltaP2:", deltaP2)
@@ -175,11 +176,11 @@ if __name__ == '__main__':
             largelist.append(count - lifenum)
 
 
-        print("partlist: ", partlist)
+        print("partlist: ",partlist)
         print("nextPlist: ", nextPlist)
         print("plist", plist)
-        #print("count", count)
-        #print("lifenum:", lifenumlist)
+        # print("count", count)
+        # print("lifenum:", lifenumlist)
         print("nowlifenum:", nowlifenumlist)
         print("coverage:", coveragelist)
         print("num:", nownum)
@@ -252,6 +253,6 @@ if __name__ == '__main__':
     print("coverage:", coverageAll)
 
     a = plt.plot(np.arange(500), lifenumlist)
-    #plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
-    #plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(100))
+    # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.show()
