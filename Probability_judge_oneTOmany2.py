@@ -7,7 +7,7 @@ import math
 import random
 from IPython.core.display import HTML
 import poisson_oneTOmany as poi
-LT = 5 #最長 lifetime
+LT = 1441 #最長 lifetime
 
 def newCoverageFC (lifenumlist, life):
     countnum = 0  #處理計算方式
@@ -20,7 +20,7 @@ def newCoverageFC (lifenumlist, life):
         elif newi <= 5 and newi != 0:
             life = life - (newi * lifenumlist[newi])
     print(lifenumlist)
-    coverage2 = countnum / needK - (1 - life / (LT * needK)) * (1 / needK)
+    coverage2 = countnum / originK - (1 - life / (LT * originK)) * (1 / originK)
     print("coutnum:", countnum)
     print("life:", life)
     print("coverage2 : ", coverage2)
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     coverage = 1
     nownum = 0
     lastcoverage = 1
-    for i in range(100) : #做100次
+    for i in range(1000) : #做100次
         count = 0
         partlist = []
         nextPlist = []
@@ -101,7 +101,7 @@ if __name__ == '__main__':
             partlist.append(count)
 
             if i != 0 :
-                coverage = lifenum/needK - (1 - totalLife/(LT*needK))*(1/needK)  #(永遠0.01?)
+                coverage = lifenum/originK - (1 - totalLife/(LT*originK))*(1/originK)  #(永遠0.01?)
                 coveragelist.append(round(coverage, 4))
                 coverageAll.append(round(coverage, 4))
             lifenumlist.append(lifenum)
@@ -129,27 +129,27 @@ if __name__ == '__main__':
             nextPlist.append(round(nextP/10000, 5))
             if ii == 4:
                 Newcoverage = newCoverageFC(lifenum2, totalLife)
-                if LTkeep == 1:
+                if count > 1:
                     deltaP2 = (1/coverage) * deltaP
-                    LTkeep += 1
-                elif LTkeep == (LT/5):
+                else:
                     deltaP2 = deltaP2
-                    LTkeep = 1
                 if Newcoverage <= 0:
-                    k1 = needK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
+                    k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
                 elif Newcoverage >= 1:
                     #k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
                     k1 = 0
                 elif 0 < Newcoverage < 1:
-                    #k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
-                    k1 = needK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
+                    #k1 = originK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
+                    k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
                 print("k1", k1)
                 if k1 < 0:
                     k1 = 0
+                needK = k1
+                needpartK = needK/5
                 p = poi.Pcal(k1) #round 四捨五入
                 print("newcoverage:", Newcoverage)
                 print("deltaP2:", deltaP2)
-                print("deltaP3:", needK * (1 - Newcoverage))
+                print("deltaP3:", originK * (1 - Newcoverage))
                 print("deltaP4:", int(deltaP2) * kp)
                 print(p)
             elif ii < 4:
@@ -169,10 +169,10 @@ if __name__ == '__main__':
             #     else:
             #         print("nowneed:", nowneed, "count:", (needpartK*(ii+1)) / count)
 
-        if lifenum < needK :
+        if lifenum < originK :
             low = low + 1
-            lowlist.append(needK - lifenum)
-        elif lifenum >= needK :
+            lowlist.append(originK - lifenum)
+        elif lifenum >= originK :
             largelist.append(count - lifenum)
 
 
@@ -223,18 +223,18 @@ if __name__ == '__main__':
         if avoidcycle0 <= 4:
             avoidcycle0 += 1
             continue
-        if i < needK:
+        if i < originK:
             temp = temp + i
             lowlist.append(i)
-            if i < needK*0.98:
+            if i < originK*0.98:
                 low98 += 1
-            if i < needK*0.95:
+            if i < originK*0.95:
                 low95 += 1
-            lowlistMinus.append(needK-i)
-        elif i >= needK:
+            lowlistMinus.append(originK-i)
+        elif i >= originK:
             temp1 = temp1 + i
             biglist.append(i)
-            biglistMinus.append(i-needK)
+            biglistMinus.append(i-originK)
 
     print("lowlist:", lowlist)
     if len(lowlist) != 0:
@@ -252,7 +252,7 @@ if __name__ == '__main__':
     print("bignum", len(biglist))
     print("coverage:", coverageAll)
 
-    a = plt.plot(np.arange(500), lifenumlist)
+    a = plt.plot(np.arange(5000), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.show()
