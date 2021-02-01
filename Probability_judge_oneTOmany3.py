@@ -7,17 +7,16 @@ import math
 import random
 from IPython.core.display import HTML
 import poisson_oneTOmany as poi
-LT = 5  # 最長 lifetime
 
 def newCoverageFC (lifenumlist, life):
     countnum = 0  # 處理計算方式
-    for newi in range(LT+1):
+    for newi in range(LT + 1):
         if newi == 0:
             life = life
-        elif newi >= 6:
-            life = life - (5 * lifenumlist[newi])
+        elif newi >= (timeslot + 1):  # 6
+            life = life - (timeslot * lifenumlist[newi])
             countnum = countnum + lifenumlist[newi]
-        elif newi <= 5 and newi != 0:
+        elif newi <= timeslot and newi != 0:  # 5
             life = life - (newi * lifenumlist[newi])
     print(lifenumlist)
     coverage2 = countnum / originK - (1 - life / (LT * originK)) * (1 / originK)
@@ -27,7 +26,9 @@ def newCoverageFC (lifenumlist, life):
     return coverage2
 
 if __name__ == '__main__':
+    LT = 19  # 最長 lifetime
     timeslot = 5
+    totalcycle = 100
     fu = 0
     # p = 1050
     needK = 1500  # k=2000
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     trueP = p
     originK = needK
     n = 3000  # n=1000 人數
-    needpartK = needK/5
+    needpartK = needK/timeslot
     countlist = []
     kp = 0.1  # 原本是 0.0001 不過這裡放大 10000 倍
     low = 0
@@ -53,7 +54,8 @@ if __name__ == '__main__':
     coverage = 1
     nownum = 0
     lastcoverage = 1
-    for i in range(100):  # 做100次
+    nownum222 = -1
+    for i in range(totalcycle):  # 做100次
         count = 0
         partlist = []
         nextPlist = []
@@ -63,12 +65,14 @@ if __name__ == '__main__':
             Covcount = 0
             for i in coveragelist:
                 Covcount = Covcount + i
-            lastCovAve = Covcount/5
+            lastCovAve = Covcount/timeslot
         coveragelist = []
         nowlifenumlist = []
         deltaP = 0
         deltaPlist = []
-        for ii in range(5):  # 5個time slot
+        for ii in range(timeslot):  # 5個time slot
+            nownum222 += 1
+            print("現在:", nownum222)
             NowIsEmpty = []  # 紀錄 那些life以扣光 位置要填補
             lifenum = 0  # 現有數量
             totalLife = 0
@@ -83,14 +87,14 @@ if __name__ == '__main__':
                         lifetime[num] = lifetime[num] - 1
                         totalLife = totalLife + lifetime[num]
                         lifenum = lifenum + 1
-                        if ii == 4:
+                        if ii == (timeslot - 1):   # 4
                             for num2 in range(LT):
                                 if num2 == 0:
                                     continue
                                 elif num2 == lifetime[num]:
                                     lifenum2[num2] += 1
 
-            for iii in range(n) : # n=1000 有幾個人
+            for iii in range(n):  # n=1000 有幾個人
                 if random.randint(1, 10000) <= p:
                     count = count + 1
                     lifenum2[LT] += 1
@@ -102,12 +106,12 @@ if __name__ == '__main__':
             partlist.append(count)
 
             if i != 0 :
-                coverage = lifenum/originK - (1 - totalLife/(LT*originK))*(1/originK)  #(永遠0.01?)
+                coverage = lifenum/originK - (1 - totalLife/(LT*originK))*(1/originK)  # (永遠0.01?) nope
                 coveragelist.append(round(coverage, 4))
                 coverageAll.append(round(coverage, 4))
             lifenumlist.append(lifenum)
             nowlifenumlist.append(lifenum)
-            #校正P
+            # 校正P
             nextP = 0
             if count == 0:
                 nextP = 0
@@ -120,15 +124,16 @@ if __name__ == '__main__':
                 elif count < needpartK * (ii+1) and i != 0:
                     nextP = needpartK*(ii+1) - count
 
-                elif count >= needpartK * (ii+1) :
+                elif count >= needpartK * (ii+1):
                     nextP = needpartK*(ii+1) - count
 
-                elif count < needpartK * (ii+1) :
+                elif count < needpartK * (ii+1):
                     nextP = needpartK*(ii+1) - count
 
             print("nextP:", nextP)
             nextPlist.append(round(nextP/10000, 5))
-            if ii == 4:
+            deltaP2 = 0
+            if ii == (timeslot - 1):
                 Newcoverage = newCoverageFC(lifenum2, totalLife)
                 if count > 1:
                     deltaP2 = (1/coverage) * deltaP
@@ -137,23 +142,23 @@ if __name__ == '__main__':
                 if Newcoverage <= 0:
                     k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
                 elif Newcoverage >= 1:
-                    #k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
+                    # k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
                     k1 = 0
                 elif 0 < Newcoverage < 1:
-                    #k1 = originK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
+                    # k1 = originK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
                     k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp
                 print("k1", k1)
                 if k1 < 0:
                     k1 = 0
                 needK = k1
-                needpartK = needK/5
+                needpartK = needK/timeslot
                 p = poi.Pcal(k1) #round 四捨五入
                 print("newcoverage:", Newcoverage)
                 print("deltaP2:", deltaP2)
                 print("deltaP3:", originK * (1 - Newcoverage))
                 print("deltaP4:", int(deltaP2) * kp)
                 print(p)
-            elif ii < 4:
+            elif ii < (timeslot - 1):
                 if count == 0 and ii == 0:
                     deltaP = deltaP
                 else:
@@ -203,7 +208,7 @@ if __name__ == '__main__':
     print(ave)
 
     temp = 0
-    for i in largelist:
+    for i in largelist :
         temp = temp + i
     if len(largelist) != 0:
         ave = temp/len(largelist)
@@ -253,7 +258,7 @@ if __name__ == '__main__':
     print("bignum", len(biglist))
     print("coverage:", coverageAll)
 
-    a = plt.plot(np.arange(500), lifenumlist, linewidth=1)
+    a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.show()
