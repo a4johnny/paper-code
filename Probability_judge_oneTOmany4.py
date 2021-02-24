@@ -54,6 +54,7 @@ if __name__ == '__main__':
     lifetime = {}
     lifetimesum = needK*3
     LTkeep = 1
+    CollectDelay = 1
     for num in range(int(lifetimesum)):  # lifetime 初始化  *3 放收集到資料的lifetime
         lifetime[num] = -1
 
@@ -144,13 +145,15 @@ if __name__ == '__main__':
             deltaP2 = 0
             if ii == (timeslot - 1):
                 Newcoverage = newCoverageFC(lifenum2, totalLife)
-                if count > 1:
+                if count >= 1:
                     deltaP2 = (1/coverage) * deltaP
                     snlist.append(needK - count)  # sn 插植成常態分佈
-                    kpp = 1
+                    kpp = 1/CollectDelay
+                    CollectDelay = 1
                 else:
                     deltaP2 = deltaP2
-                    kpp *= 0.5
+                    kpp = 1
+                    CollectDelay += 1
 
                 if Newcoverage <= 0:
                     k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp * kpp
