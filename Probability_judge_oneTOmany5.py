@@ -12,6 +12,15 @@ import seaborn as sn
 
 def newCoverageFC (lifenumlist, life):
     countnum = 0  # 處理計算方式
+    TheLife2 = 0
+    TheLife2Num = 0
+    for num2 in range(int(lifetimesum)):
+        if lifetime[num2] >= (timeslot+1):
+            TheLife2 += OriginLifetime[num2]
+            TheLife2Num += 1
+            if TheLife2Num == originK:
+                break
+
     for newi in range(LT + 1):
         if newi == 0:
             life = life
@@ -21,23 +30,33 @@ def newCoverageFC (lifenumlist, life):
         elif newi <= timeslot and newi != 0:  # 5
             life = life - (newi * lifenumlist[newi])
     print(lifenumlist)
-    coverage2 = countnum / originK - (1 - life / (LT * originK)) * (1 / originK)
+
+    AllLife = 0
+    for iiii in range(len(AllLifeList)):
+        AllLife += AllLifeList[iiii]
+    #coverage2 = countnum / originK - (1 - life / ((AllLife/len(AllLifeList)) * originK)) * (1 / originK)
+    if TheLife2Num <= originK:
+        TheLife2 += (AllLife/len(AllLifeList)) * (originK - TheLife2Num)
+
+    coverage2 = countnum / originK - (1 - life / TheLife2) * (1 / originK)
     print("coutnum:", countnum)
     print("life:", life)
+    print("TheLife2:", TheLife2)
+    print("TheLife2Num:", TheLife2Num)
     print("coverage2 : ", coverage2)
     return coverage2
 
 
 if __name__ == '__main__':
-    LT = 31  # 最長 lifetime
-    LTrange = 6
+    LT = 5  # 最長 lifetime
+    LTrange = 0
     timeslot = 5
     totalcycle = 100
     fu = 0
     # p = 1050
     needK = 1500  # k=2000
     originK = needK
-    n = random.randint(2500, 3500)  # n=1000 人數
+    n = random.randint(3000, 3000)  # n=1000 人數
     p = poi.Pcal(needK, n)
     trueP = p
     needpartK = needK/timeslot
@@ -52,12 +71,13 @@ if __name__ == '__main__':
     snlist = []  # 看收集差的變化 (常態???)
     AllLifeList = []  # 算平均 life 用
     lifetime = {}
+    OriginLifetime = {}
     lifetimesum = needK*3
     LTkeep = 1
     CollectDelay = 1
     for num in range(int(lifetimesum)):  # lifetime 初始化  *3 放收集到資料的lifetime
         lifetime[num] = -1
-
+        OriginLifetime[num] = -1
     coveragelist = []
     coverage = 1
     nownum = 0
@@ -91,6 +111,7 @@ if __name__ == '__main__':
                 for num in range(int(lifetimesum)):
                     if lifetime[num] == -1 or lifetime[num] == 0:
                         lifetime[num] = -1
+                        OriginLifetime[num] = -1
                     elif lifetime[num] > 0:
                         lifetime[num] = lifetime[num] - 1
                         totalLife = totalLife + lifetime[num]
@@ -110,13 +131,30 @@ if __name__ == '__main__':
                         if lifetime[num] == -1:
                             randomLife = random.randint(LT-LTrange, LT)
                             lifetime[num] = randomLife
+                            OriginLifetime[num] = randomLife
                             AllLifeList.append(randomLife)
                             break
 
             partlist.append(count)
 
             if i != 0:
-                coverage = lifenum/originK - (1 - totalLife/(LT*originK))*(1/originK)  # (永遠0.01?) nope
+                TheLife = 0
+                TheLifeNum = 0
+                for num in range(int(lifetimesum)):
+                    if OriginLifetime[num] > 0:
+                        TheLife += OriginLifetime[num]
+                        TheLifeNum += 1
+                        if TheLifeNum == originK:
+                            break
+                AllLife = 0
+                for iiii in range(len(AllLifeList)):
+                    AllLife += AllLifeList[iiii]
+
+                if TheLifeNum <= originK:
+                    TheLife += (AllLife/len(AllLifeList)) * (originK - TheLifeNum)
+                #coverage = lifenum/originK - (1 - totalLife/((AllLife/len(AllLifeList))*originK))*(1/originK)  # (永遠0.01?) nope
+                coverage = lifenum / originK - (1 - totalLife / TheLife) * (1 / originK)  # (永遠0.01?) nope
+                print("totalLife and Thelife:", totalLife, TheLife)
                 coveragelist.append(round(coverage, 4))
                 coverageAll.append(round(coverage, 4))
             lifenumlist.append(lifenum)
@@ -168,7 +206,7 @@ if __name__ == '__main__':
                     k1 = 0
                 needK = k1
                 needpartK = needK/timeslot
-                n = random.randint(2500, 3500)
+                n = random.randint(3000, 3000)
                 p = poi.Pcal(k1, n) #round 四捨五入
                 print("newcoverage:", Newcoverage)
                 print("deltaP2:", deltaP2)

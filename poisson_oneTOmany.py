@@ -25,8 +25,8 @@ def Pcal (delp):
     bbb3 = []
     tempgod = 0
     thePP = 0
-    for p in pp :
-        mu= n * p * t
+    for p in pp:
+        mu = n * p * t
         b = stats.poisson.pmf(k, mu)
         bb.append(b)  #不同p達成相同k的機率 => bb
         ko = math.sqrt(k) # poisson 標準差 > 期望值是樣本母數=變異數，標準差=變異數開根號
