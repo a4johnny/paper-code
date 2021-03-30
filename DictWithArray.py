@@ -17,9 +17,9 @@ if __name__ == '__main__':
         stri = str(i + 1)
         array1 = []
         if (i + 1) == 3:
-            array1.append(1)
-            array1.append(2)
-            array1.append(3)
+            for ii in range(15):
+                num = random.randint(1, 10)
+
         hashmap1[stri] = array1
 
     print(hashmap1)
