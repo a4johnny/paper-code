@@ -18,17 +18,20 @@ class Man:
 
 
 def addman(areacount, user):
-    addn = random.randint(200, 300)
+    addn = random.randint(2000, 2500)
     for i in range(addn):
-        u = Man(random.randint(0, 8), random.randint(0, 8), 0)
+        u = Man(random.randint(0, 8), random.randint(0, 8), 11)
         u.area = areajudge(u)
         areacount[u.area] += 1
-        user.append(user)
-    print("i am working")
+        user.append(u)
+    print("--------------------")
+    print("add:", addn)
+    return areacount
+
 
 def areajudge(u):
-    if u.x < 3:
-        if u.y < 3:
+    if 0 <= u.x < 3:
+        if 0 <= u.y < 3:
             u.area = 1
         elif 3 <= u.y <= 5:
             u.area = 4
@@ -55,11 +58,12 @@ def areajudge(u):
 
 
 def rw(user, areacount):  # 隨機亂走
+    loss = 0
     for i in range(len(user)):
         LorR = random.randint(0, 1)
         TorB = random.randint(0, 1)
-        rangeX = random.randint(0, 5)
-        rangeY = random.randint(0, 5)
+        rangeX = random.randint(0, 7)
+        rangeY = random.randint(0, 7)
 
         long = len(user)
         if i >= long:
@@ -75,20 +79,30 @@ def rw(user, areacount):  # 隨機亂走
         elif TorB == 0:
             user[i].y -= rangeY
 
+        OriginArea = user[i].area
         user[i].area = areajudge(user[i])
 
         if user[i].area == 0:
+            loss += 1
+            areacount[OriginArea] -= 1
             del user[i]
         elif user[i].area != 0:
+            areacount[OriginArea] -= 1
             areacount[user[i].area] += 1
 
-    print("areacount", areacount)
-    addman(areacount, user)
+    areacount = addman(areacount, user)
+
+    areacount[0] = 0
+    for iii in range(10):
+        areacount[0] += areacount[iii]
+
+    print("loss:", loss)
+    print("areacount:", areacount)
+    return user, areacount
 
 
 def userinit(n):  # n現在區域內總人數
     user = []
-
     areacount = []
     for i in range(1, 11, 1):  # 起使 結束 地增值
         areacount.append(0)
@@ -104,6 +118,8 @@ def userinit(n):  # n現在區域內總人數
 
 
 if __name__ == '__main__':  # 此程式當主程式執行時，從這行開始
-    for i in range(1):
-        user, areacount = userinit(3000)
+    user, areacount = userinit(9000)
+    for ii in range(20):
         rw(user, areacount)
+        # for iii in range(10):
+        #     areacount[iii] = 0
