@@ -36,7 +36,7 @@ def newCoverageFC (lifenumlist, life):
     AllLife = 0
     for iiii in range(len(AllLifeList)):
         AllLife += AllLifeList[iiii]
-    #coverage2 = countnum / originK - (1 - life / ((AllLife/len(AllLifeList)) * originK)) * (1 / originK)
+    # coverage2 = countnum / originK - (1 - life / ((AllLife/len(AllLifeList)) * originK)) * (1 / originK)
     if TheLife2Num <= originK:
         TheLife2 += (AllLife/len(AllLifeList)) * (originK - TheLife2Num)
 
@@ -71,6 +71,7 @@ if __name__ == '__main__':
     lowlist = []
     largelist = []
     coverageAll = []
+    coverageFirst = []
     lifenumlist = []  # all data life time
     snlist = []  # 看收集差的變化 (常態???)
     AllLifeList = []  # 算平均 life 用
@@ -127,6 +128,30 @@ if __name__ == '__main__':
                                 elif num2 == lifetime[num]:
                                     lifenum2[num2] += 1
 
+            if i == 0:
+                if ii == 0:
+                    coverageFirst.append(round(0, 5))
+                else:
+                    TheLife = 0
+                    TheLifeNum = 0
+                    for num in range(int(lifetimesum)):
+                        if lifetime[num] > 0:
+                            TheLife += 1 - lifetime[num] / OriginLifetime[num]
+                            TheLifeNum += 1
+                            if TheLifeNum == lifenum:
+                                break
+
+                    AllLife = 0
+                    for iiii in range(len(AllLifeList)):
+                        AllLife += AllLifeList[iiii]
+
+                    if TheLifeNum <= originK:
+                        TheLife += 1 * (originK - TheLifeNum)
+
+                    coverage = lifenum / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
+                    print("Thelife:", TheLife)
+                    coverageFirst.append(round(coverage, 5))
+
             if i != 0:
                 TheLife = 0
                 TheLifeNum = 0
@@ -146,8 +171,8 @@ if __name__ == '__main__':
 
                 coverage = lifenum / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
                 print("Thelife:", TheLife)
-                coveragelist.append(round(coverage, 4))
-                coverageAll.append(round(coverage, 4))
+                coveragelist.append(round(coverage, 5))
+                coverageAll.append(round(coverage, 5))
 
             for iii in range(n):  # n=1000 有幾個人
                 if random.randint(1, 10000) <= p:
@@ -235,7 +260,7 @@ if __name__ == '__main__':
                 needpartK = needK/timeslot
                 user, area = rw.rw(user, area)
                 n = area[5]
-                p = poi.Pcal(k1, n) #round 四捨五入
+                p = poi.Pcal(k1, n)  # round 四捨五入
                 print("newcoverage:", Newcoverage)
                 print("deltaP2:", deltaP2)
                 print("deltaP3:", originK * (1 - Newcoverage))
@@ -340,11 +365,26 @@ if __name__ == '__main__':
         print("bigave:", temp1)
     print("bignum", len(biglist))
     print("coverage:", coverageAll)
+    coverageCycle = []
+    jk = 0
+    clow = []
+    cloww = []
+    for j in coverageAll:
+        jk += 1
+        if jk == 5:
+            jk = 0
+            coverageCycle.append(j)
+            if j < 1:
+                clow.append(j)
+                if j < ((originK*0.98)/originK):
+                    cloww.append(j)
+    print("clow:", clow)
+    print("cloww:", cloww)
     AllLife = 0
     for iiii in range(len(AllLifeList)):
         AllLife += AllLifeList[iiii]
     print("aveLifetime:", AllLife/iiii, iiii)
-
+    print("coverageFirst:", coverageFirst)
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(100))

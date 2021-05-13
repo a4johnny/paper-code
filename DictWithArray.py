@@ -10,13 +10,12 @@ import poisson_oneTOmany2 as poi
 import seaborn as sn
 
 
-def hashmap():
+def hashmapsort():
     hashmap1 = {}
-    LTrange = 10
-    for i in range(LTrange):
-        stri = str(i + 1)
+    for i in range(LT-LTrange, LT+1, 1):  # 不包含最後的數字
+        stri = str(i)
         array1 = []
-        if (i + 1) == 3:  # 到 dict = 3 的時候
+        if i == LT-LTrange+6:  # 到 dict = 3 的時候
             for ii in range(20):  # 20個數用2分插入
                 num = random.randint(1, 30)
                 j = 0  # 頭
@@ -57,11 +56,25 @@ def hashmap():
                             elif num < array1[lenk - 1]:
                                 k = lenk
         hashmap1[stri] = array1
-    hashmap1['2'] = hashmap1['3']
+    hashmap1['25'] = hashmap1['26']
     print(hashmap1)
     # array1 = hashmap1['3']
-    print(hashmap1['3'][9])
+    print(hashmap1['25'][9])
+    return hashmap1
+
+
+def hashmapdecay(hp):
+    # global LT
+    # LT = 20
+    # print(LT, LTrange)
+    for i in hp:
+        i = []
+        print(i)
 
 
 if __name__ == '__main__':
-    hashmap()
+    LT = 30
+    LTrange = 10
+    hp1 = hashmapsort()
+    hashmapdecay(hp1)
+    print(LT)

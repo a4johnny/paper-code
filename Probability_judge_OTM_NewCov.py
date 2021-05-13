@@ -8,6 +8,7 @@ import random
 from IPython.core.display import HTML
 import poisson_oneTOmany2 as poi
 import seaborn as sn
+import DictWithArray as dwa
 
 
 def newCoverageFC (lifenumlist, life):
@@ -48,15 +49,15 @@ def newCoverageFC (lifenumlist, life):
 
 
 if __name__ == '__main__':
-    LT = 5  # 最長 lifetime
-    LTrange = 0
+    LT = 20  # 最長 lifetime
+    LTrange = 5
     timeslot = 5
     totalcycle = 100
     fu = 0
     # p = 1050
-    needK = 1500  # k=2000
+    needK = 500  # k=2000
     originK = needK
-    n = random.randint(3000, 3000)  # n=1000 人數
+    n = random.randint(1000, 1000)  # n=1000 人數
     p = poi.Pcal(needK, n)
     trueP = p
     needpartK = needK/timeslot
