@@ -6,7 +6,7 @@ import matplotlib.style as style
 import math
 import random
 from IPython.core.display import HTML
-import poisson_oneTOmany2 as poi
+import poisson_only as poi
 import seaborn as sn
 import DictWithArray as dwa
 import ramdom_walk as rw
@@ -149,7 +149,7 @@ if __name__ == '__main__':
                     if TheLifeNum <= originK:
                         TheLife += 1 * (originK - TheLifeNum)
 
-                    coverage = lifenum / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
+                    coverage = (lifenum+count) / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
                     print("Thelife:", TheLife)
                     coverageFirst.append(round(coverage, 5))
 
@@ -170,7 +170,7 @@ if __name__ == '__main__':
                 if TheLifeNum <= originK:
                     TheLife += 1 * (originK - TheLifeNum)
 
-                coverage = lifenum / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
+                coverage = (lifenum+count) / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
                 print("Thelife:", TheLife)
                 coveragelist.append(round(coverage, 5))
                 coverageAll.append(round(coverage, 5))
@@ -189,28 +189,7 @@ if __name__ == '__main__':
 
             partlist.append(count)
 
-            # if i != 0:
-            #     TheLife = 0
-            #     TheLifeNum = 0
-            #     for num in range(int(lifetimesum)):
-            #         if OriginLifetime[num] > 0:
-            #             TheLife += OriginLifetime[num]
-            #             TheLifeNum += 1
-            #             if TheLifeNum == originK:
-            #                 break
-            #     AllLife = 0
-            #     for iiii in range(len(AllLifeList)):
-            #         AllLife += AllLifeList[iiii]
-            #
-            #     if TheLifeNum <= originK:
-            #         TheLife += (AllLife/len(AllLifeList)) * (originK - TheLifeNum)
-            #     #  coverage = lifenum/originK - (1 - totalLife/((AllLife/len(AllLifeList))*originK))*(1/originK)
-            #     #  (永遠0.01?) nope
-            #     coverage = lifenum / originK - (1 - totalLife / TheLife) * (1 / originK)  # (永遠0.01?) nope
-            #     print("totalLife and Thelife:", totalLife, TheLife)
-            #     coveragelist.append(round(coverage, 4))
-            #     coverageAll.append(round(coverage, 4))
-            lifenumlist.append(lifenum)
+            lifenumlist.append(lifenum+count)
             nowlifenumlist.append(lifenum)
             # 校正P
             nextP = 0
@@ -246,14 +225,16 @@ if __name__ == '__main__':
                     kpp = 1
                     CollectDelay += 1
 
-                if Newcoverage <= 0:
-                    k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp * kpp
-                elif Newcoverage >= 1:
-                    # k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
-                    k1 = 0
-                elif 0 < Newcoverage < 1:
-                    # k1 = originK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
-                    k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp * kpp
+                # if Newcoverage <= 0:
+                #     k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp * kpp
+                # elif Newcoverage >= 1:
+                #     # k1 = needK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
+                #     k1 = 0
+                # elif 0 < Newcoverage < 1:
+                #     # k1 = originK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
+                #     k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp * kpp
+                k1 = originK - (lifenum + count)
+                #k1 = originK * (1 - Newcoverage)
                 print("k1", k1)
                 if k1 < 0:
                     k1 = 0
@@ -277,20 +258,11 @@ if __name__ == '__main__':
 
             plist.append(round(p/10000, 5))
 
-            # if count != 0:
-            #     nowneed = needpartK * (ii+1) * (1/coverage)*1.3
-            #     if i >= 1 and len(coverageAll) > 1:
-            #         cov = abs(coverageAll[len(coverageAll)-1] - coverageAll[len(coverageAll)-2])
-            #         print("nowneed:", nowneed, "count:", (needpartK*(ii+1)) / count)
-            #     else:
-            #         print("nowneed:", nowneed, "count:", (needpartK*(ii+1)) / count)
-
-        if lifenum < originK :
+        if (lifenum+count) < originK :
             low = low + 1
-            lowlist.append(originK - lifenum)
-        elif lifenum >= originK :
-            largelist.append(count - lifenum)
-
+            lowlist.append(originK - (lifenum+count))
+        elif (lifenum+count) >= originK :
+            largelist.append(count - (lifenum+count))
 
         print("partlist: ",partlist)
         print("nextPlist: ", nextPlist)
@@ -352,11 +324,11 @@ if __name__ == '__main__':
         elif i >= originK:
             temp1 = temp1 + i
             biglist.append(i)
-            if i > originK * 1.02:
+            if i > originK*1.02:
                 big98 += 1
-            if i > originK * 1.05:
+            if i > originK*1.05:
                 big95 += 1
-            biglistMinus.append(i - originK)
+            biglistMinus.append(i-originK)
 
     print("lowlist:", lowlist)
     if len(lowlist) != 0:
@@ -395,9 +367,10 @@ if __name__ == '__main__':
         AllLife += AllLifeList[iiii]
     print("aveLifetime:", AllLife/iiii, iiii)
     print("coverageFirst:", coverageFirst)
-    print("平均人數:", totaln / totalcycle)
+    print("平均人數:", totaln/totalcycle)
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
+    plt.xticks(fontsize=2)
     plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(25))
     plt.show()
