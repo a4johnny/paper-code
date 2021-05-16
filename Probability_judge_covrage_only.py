@@ -149,7 +149,7 @@ if __name__ == '__main__':
                     if TheLifeNum <= originK:
                         TheLife += 1 * (originK - TheLifeNum)
 
-                    coverage = (lifenum+count) / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
+                    coverage = (lifenum) / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
                     print("Thelife:", TheLife)
                     coverageFirst.append(round(coverage, 5))
 
@@ -170,7 +170,7 @@ if __name__ == '__main__':
                 if TheLifeNum <= originK:
                     TheLife += 1 * (originK - TheLifeNum)
 
-                coverage = (lifenum+count) / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
+                coverage = (lifenum) / originK - ((TheLife / originK) / originK) * (1 / originK)  # (永遠0.01?) nope
                 print("Thelife:", TheLife)
                 coveragelist.append(round(coverage, 5))
                 coverageAll.append(round(coverage, 5))
@@ -189,7 +189,7 @@ if __name__ == '__main__':
 
             partlist.append(count)
 
-            lifenumlist.append(lifenum+count)
+            lifenumlist.append(lifenum)
             nowlifenumlist.append(lifenum)
             # 校正P
             nextP = 0
@@ -233,8 +233,8 @@ if __name__ == '__main__':
                 # elif 0 < Newcoverage < 1:
                 #     # k1 = originK * (1 / Newcoverage) * (1/coverage) + int(deltaP2)
                 #     k1 = originK * (1 - Newcoverage) * 1.03 + int(deltaP2) * kp * kpp
-                k1 = originK - (lifenum + count)
-                #k1 = originK * (1 - Newcoverage)
+                #     k1 = originK - (lifenum + count)
+                k1 = originK * (1 - Newcoverage)
                 print("k1", k1)
                 if k1 < 0:
                     k1 = 0
@@ -258,11 +258,11 @@ if __name__ == '__main__':
 
             plist.append(round(p/10000, 5))
 
-        if (lifenum+count) < originK :
+        if (lifenum) < originK :
             low = low + 1
-            lowlist.append(originK - (lifenum+count))
+            lowlist.append(originK - (lifenum))
         elif (lifenum+count) >= originK :
-            largelist.append(count - (lifenum+count))
+            largelist.append(count - (lifenum))
 
         print("partlist: ",partlist)
         print("nextPlist: ", nextPlist)

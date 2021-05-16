@@ -56,10 +56,10 @@ if __name__ == '__main__':
     totalcycle = 100
     fu = 0
     # p = 1050
-    needK = 500  # k=2000
+    needK = 5  # k=2000
     originK = needK
     # n = random.randint(150, 150)  # n=1000 人數
-    user, area = rw.userinit(9000)
+    user, area = rw.userinit(90)
     n = area[5]
     p = poi.Pcal(needK, n)
     trueP = p
@@ -398,6 +398,7 @@ if __name__ == '__main__':
     print("平均人數:", totaln / totalcycle)
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
-    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(100))
+    plt.xticks(fontsize=9)
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(1))
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(25))
     plt.show()
