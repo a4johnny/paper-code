@@ -51,7 +51,7 @@ def newCoverageFC (lifenumlist, life):
 
 if __name__ == '__main__':
     LT = 30  # 最長 lifetime
-    LTrange = 10
+    LTrange = 20
     timeslot = 5
     totalcycle = 100
     fu = 0

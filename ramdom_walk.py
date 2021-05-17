@@ -9,6 +9,7 @@ from IPython.core.display import HTML
 import poisson_oneTOmany2 as poi
 import seaborn as sn
 
+# 隨機投放
 
 class Man:
     def __init__(self, x, y, area):
@@ -18,7 +19,7 @@ class Man:
 
 
 def addman(areacount, user):
-    addn = random.randint(2000, 2500)
+    addn = random.randint(25, 30)
     for i in range(addn):
         u = Man(random.randint(0, 8), random.randint(0, 8), 11)
         u.area = areajudge(u)
@@ -118,7 +119,7 @@ def userinit(n):  # n現在區域內總人數
 
 
 if __name__ == '__main__':  # 此程式當主程式執行時，從這行開始
-    user, areacount = userinit(9000)
+    user, areacount = userinit(100)
     for ii in range(20):
         rw(user, areacount)
         # for iii in range(10):

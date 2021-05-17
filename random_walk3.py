@@ -9,20 +9,20 @@ from IPython.core.display import HTML
 import poisson_oneTOmany2 as poi
 import seaborn as sn
 
-# 彈起來
+# 隨機投放
 
 class Man:
-    def __init__(self, x, y, area, count):
+    def __init__(self, x, y, area, areal):
         self.x = x
         self.y = y
         self.area = area
-        self.count = count
+        self.areal = list(areal)
 
 
-def reboundman(areacount, user):
-    addn = random.randint(2000, 2500)
+def addman(areacount, user):
+    addn = random.randint(25, 30)
     for i in range(addn):
-        u = Man(random.randint(0, 8), random.randint(0, 8), 11, 0)
+        u = Man(random.randint(0, 8), random.randint(0, 8), 11)
         u.area = areajudge(u)
         areacount[u.area] += 1
         user.append(u)
@@ -73,24 +73,19 @@ def rw(user, areacount):  # 隨機亂走
 
         if LorR == 1:
             user[i].x += rangeX
-            if user[i].x > 8:
-                user[i].x = 8 - (user[i].x - 8)
         elif LorR == 0:
             user[i].x -= rangeX
-            if user[i].x < 0:
-                user[i].x = 0 - user[i].x
 
         if TorB == 1:
             user[i].y += rangeY
-            if user[i].y > 8:
-                user[i].y = 8 - (user[i].y - 8)
         elif TorB == 0:
             user[i].y -= rangeY
-            if user[i].y < 0:
-                user[i].y = 0 - user[i].y
 
         OriginArea = user[i].area
         user[i].area = areajudge(user[i])
+        a = user[i].area in user[i].areal
+        if a is False:
+            user[i].areal.append(user[i].area)
 
         if user[i].area == 0:
             loss += 1
@@ -100,7 +95,7 @@ def rw(user, areacount):  # 隨機亂走
             areacount[OriginArea] -= 1
             areacount[user[i].area] += 1
 
-
+    areacount = addman(areacount, user)
 
     areacount[0] = 0
     for iii in range(10):
@@ -114,14 +109,11 @@ def rw(user, areacount):  # 隨機亂走
 def userinit(n):  # n現在區域內總人數
     user = []
     areacount = []
-    countlist = []
     for i in range(1, 11, 1):  # 起使 結束 地增值
         areacount.append(0)
 
     for i in range(n):
-        for i in range(1, 11, 1):  # 起使 結束 地增值
-            countlist.append(0)
-        u = Man(random.randint(0, 8), random.randint(0, 8), 0, countlist)
+        u = Man(random.randint(0, 8), random.randint(0, 8), 0)
         u.area = areajudge(u)
         areacount[u.area] += 1
         if u.area == 0:
