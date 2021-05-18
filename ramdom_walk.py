@@ -16,6 +16,8 @@ class Man:
         self.x = x
         self.y = y
         self.area = area
+        self.areal = []
+        self.F = 0
 
 
 def addman(areacount, user):

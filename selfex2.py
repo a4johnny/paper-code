@@ -72,6 +72,27 @@ c90b = [185, 220, 214, 187, 228]
 c90b98 = [102, 128, 84, 138, 140]
 c90bn = [5.65, 5.89, 5.54, 6.21, 6.06]
 
+a9000lave = [492.19, 492.82, 491.54, 493.08, 492.89]
+a9000bave = [511.34, 511.02, 511.34, 510.61, 510.65]
+b9000lave = [397.65, 395.19, 399.27, 394.98, 398.45]
+b9000bave = [531.30, 530.63, 532.53, 527.21, 537.27]
+c9000lave = [490.01, 489.93, 492.23, 489.69, 490.45]
+c9000bave = [507.64, 509.09, 507.86, 507.76, 507.51]
+
+a900lave = [47.54, 47.68, 47.30, 47.49, 47.72]
+a900bave = [53.02, 52.69, 52.41, 52.65, 52.71]
+b900lave = [39.45, 39.13, 38.87, 39.65, 38.92]
+b900bave = [55.14, 55.49, 55.81, 57.15, 54.36]
+c900lave = [47.16, 46.84, 46.91, 46.32, 46.21]
+c900bave = [52.04, 52.07, 51.42, 52.69, 52.60]
+
+a90lave = [3.58, 3.52, 3.57, 3.78, 3.60]
+a90bave = [6.09, 6.19, 6.18, 6.03, 6.19]
+b90lave = [2.60, 2.76, 2.88, 2.97, 2.75]
+b90bave = [5.94, 6.41, 5.56, 5.70, 6.77]
+c90lave = [3.31, 3.21, 3.46, 3.45, 3.24]
+c90bave = [5.65, 5.89, 5.54, 6.21, 6.06]
+
 xsign = ['9000', '900', '90']
 x1 = [np.mean(a9000l), np.mean(a900l), np.mean(a90l)]
 x2 = [np.mean(b9000l), np.mean(b900l), np.mean(b90l)]
@@ -98,9 +119,39 @@ xxx = np.arange(len(xsign))
 # xx2 = [(500 - np.mean(b9000ln))/500, (50 - np.mean(b900ln))/50, (5 - np.mean(b90ln))/5]
 # xx3 = [(500 - np.mean(c9000ln))/500, (50 - np.mean(c900ln))/50, (5 - np.mean(c90ln))/5]
 # 平均多餘筆數
-xx1 = [(np.mean(a9000bn)-500), (np.mean(a900bn)-50), (np.mean(a90bn)-5)]
-xx2 = [(np.mean(b9000bn)-500), (np.mean(b900bn)-50), (np.mean(b90bn)-5)]
-xx3 = [(np.mean(c9000bn)-500), (np.mean(c900bn)-50), (np.mean(c90bn)-5)]
+# xx1 = [(np.mean(a9000bn)-500), (np.mean(a900bn)-50), (np.mean(a90bn)-5)]
+# xx2 = [(np.mean(b9000bn)-500), (np.mean(b900bn)-50), (np.mean(b90bn)-5)]
+# xx3 = [(np.mean(c9000bn)-500), (np.mean(c900bn)-50), (np.mean(c90bn)-5)]
+# 平均獲得量
+xx1 = [500 + ((np.mean(a9000bave)-500) * np.mean(a9000b) - (500-np.mean(a9000lave)) * np.mean(a9000l))/500, 50 + ((np.mean(a900bave)-50) * np.mean(a900b) - (50-np.mean(a900lave)) * np.mean(a900l))/500, 5 + ((np.mean(a90bave)-5) * np.mean(a90b) - (5-np.mean(a90lave)) * np.mean(a90l))/500]
+xx2 = [500 + ((np.mean(b9000bave)-500) * np.mean(b9000b) - (500-np.mean(b9000lave)) * np.mean(b9000l))/500, 50 + ((np.mean(b900bave)-50) * np.mean(b900b) - (50-np.mean(b900lave)) * np.mean(b900l))/500, 5 + ((np.mean(b90bave)-5) * np.mean(b90b) - (5-np.mean(b90lave)) * np.mean(b90l))/500]
+xx3 = [500 + ((np.mean(c9000bave)-500) * np.mean(c9000b) - (500-np.mean(c9000lave)) * np.mean(c9000l))/500, 50 + ((np.mean(c900bave)-50) * np.mean(c900b) - (50-np.mean(c900lave)) * np.mean(c900l))/500, 5 + ((np.mean(c90bave)-5) * np.mean(c90b) - (5-np.mean(c90lave)) * np.mean(c90l))/500]
+
+for ii in xx1:
+    pos = xx1.index(ii)
+    print(pos)
+    ii = round(ii, 1)
+    xx1[pos] = ii
+
+for ii in xx2:
+    pos = xx2.index(ii)
+    print(pos)
+    ii = round(ii, 1)
+    xx2[pos] = ii
+
+for ii in xx3:
+    pos = xx3.index(ii)
+    print(pos)
+    ii = round(ii, 1)
+    xx3[pos] = ii
+
+# 直線圖數值
+for x, y in enumerate(xx1):
+    plt.text(x, y+5, '%s'%y, ha='center')
+for x, y in enumerate(xx2):
+    plt.text(x+width, y+5, '%s'%y, ha='center')
+for x, y in enumerate(xx3):
+    plt.text(x+width*2, y+5, '%s'%y, ha='center')
 
 plt.bar(np.arange(len(xsign)), xx1, width, label='PID')
 plt.bar(np.arange(len(xsign)) + width, xx2, width, label='Poisson')
@@ -111,7 +162,7 @@ plt.xlabel("people")
 plt.ylabel("error")
 # plt.annotate("12333333333333333", (0, 0))
 plt.legend(bbox_to_anchor=(0.9, 1), loc='upper left')
-plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(1))
+plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
 plt.show()
 # ----------------------------------------------------------------------------
 

@@ -12,33 +12,55 @@ import DictWithArray as dwa
 import ramdom_walk as rw
 
 
-class Man:
-    def __init__(self, x, y, area, areal):
-        self.x = x
-        self.y = y
-        self.area = area
-        self.areal = list(areal)
+def pick(user, needk):
+    picker = []
+    pickerarea = []
+    for i in user:
+        stop = 0
+        if len(picker) < needk:
+            picker.append(i.F)
+            pickerarea.append(i.area)
+        elif len(picker) >= needk:
+            if i.F > min(picker) :
+                pos = picker.index(min(picker))
+                picker[pos] = i.F
+                pickerarea[pos] = i.area
+    for i in picker:
+        print(i)
+    print("-------------------------")
+    for i in user:
+        print(i.F, i.area)
 
 
-class Init(user):
+def init(user):
     w = 1  # 目標區域權重
     a = 1
     b = 0.3
-    long = len(user.areal)
-    if (5 in user.areal) is True:
-        long += 1*w
-    k1 = 1  # 目標區域數
-    k = 9  # 所有區域數
-    CD = len(user.areal)/k1
-    CP = long/k
-    F = a * CP + b * CD
+    for i in user:
+        long = len(i.areal)
+        if (5 in i.areal) is True:
+            long += w
+        k1 = 1  # 目標區域數
+        k = 9  # 所有區域數
+        CD = len(i.areal)/k1
+        CP = long/k
+        i.F = a * CP + b * CD
+    return user
 
 
 if __name__ == '__main__':
-    user = Man(1, 2, 3, [0, 1, 2])
-    b = 3 in a.areal
-    if b is False:
-        print("ta")
-        user.areal.append(5)
-    Init(user)
-    print(user.areal, b)
+    needk = 5
+    user, area = rw.userinit(50)
+    for n in range(5):
+        user, area = rw.rw(user, area)
+        for i in user:
+            if i.area not in i.areal:
+                i.areal.append(i.area)
+    # b = 3 in a.areal
+    # if b is False:
+    #     print("ta")
+    #     user.areal.append(5)
+    # print(user.areal, b)
+    user = init(user)
+    pick(user, needk)
+
