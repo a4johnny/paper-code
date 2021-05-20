@@ -123,46 +123,82 @@ xxx = np.arange(len(xsign))
 # xx2 = [(np.mean(b9000bn)-500), (np.mean(b900bn)-50), (np.mean(b90bn)-5)]
 # xx3 = [(np.mean(c9000bn)-500), (np.mean(c900bn)-50), (np.mean(c90bn)-5)]
 # 平均獲得量
-xx1 = [500 + ((np.mean(a9000bave)-500) * np.mean(a9000b) - (500-np.mean(a9000lave)) * np.mean(a9000l))/500, 50 + ((np.mean(a900bave)-50) * np.mean(a900b) - (50-np.mean(a900lave)) * np.mean(a900l))/500, 5 + ((np.mean(a90bave)-5) * np.mean(a90b) - (5-np.mean(a90lave)) * np.mean(a90l))/500]
-xx2 = [500 + ((np.mean(b9000bave)-500) * np.mean(b9000b) - (500-np.mean(b9000lave)) * np.mean(b9000l))/500, 50 + ((np.mean(b900bave)-50) * np.mean(b900b) - (50-np.mean(b900lave)) * np.mean(b900l))/500, 5 + ((np.mean(b90bave)-5) * np.mean(b90b) - (5-np.mean(b90lave)) * np.mean(b90l))/500]
-xx3 = [500 + ((np.mean(c9000bave)-500) * np.mean(c9000b) - (500-np.mean(c9000lave)) * np.mean(c9000l))/500, 50 + ((np.mean(c900bave)-50) * np.mean(c900b) - (50-np.mean(c900lave)) * np.mean(c900l))/500, 5 + ((np.mean(c90bave)-5) * np.mean(c90b) - (5-np.mean(c90lave)) * np.mean(c90l))/500]
+# xx1 = [500 + ((np.mean(a9000bave)-500) * np.mean(a9000b) - (500-np.mean(a9000lave)) * np.mean(a9000l))/500, 50 + ((np.mean(a900bave)-50) * np.mean(a900b) - (50-np.mean(a900lave)) * np.mean(a900l))/500, 5 + ((np.mean(a90bave)-5) * np.mean(a90b) - (5-np.mean(a90lave)) * np.mean(a90l))/500]
+# xx2 = [500 + ((np.mean(b9000bave)-500) * np.mean(b9000b) - (500-np.mean(b9000lave)) * np.mean(b9000l))/500, 50 + ((np.mean(b900bave)-50) * np.mean(b900b) - (50-np.mean(b900lave)) * np.mean(b900l))/500, 5 + ((np.mean(b90bave)-5) * np.mean(b90b) - (5-np.mean(b90lave)) * np.mean(b90l))/500]
+# xx3 = [500 + ((np.mean(c9000bave)-500) * np.mean(c9000b) - (500-np.mean(c9000lave)) * np.mean(c9000l))/500, 50 + ((np.mean(c900bave)-50) * np.mean(c900b) - (50-np.mean(c900lave)) * np.mean(c900l))/500, 5 + ((np.mean(c90bave)-5) * np.mean(c90b) - (5-np.mean(c90lave)) * np.mean(c90l))/500]
+#
+# for ii in xx1:
+#     pos = xx1.index(ii)
+#     print(pos)
+#     ii = round(ii, 1)
+#     xx1[pos] = ii
+#
+# for ii in xx2:
+#     pos = xx2.index(ii)
+#     print(pos)
+#     ii = round(ii, 1)
+#     xx2[pos] = ii
+#
+# for ii in xx3:
+#     pos = xx3.index(ii)
+#     print(pos)
+#     ii = round(ii, 1)
+#     xx3[pos] = ii
 
-for ii in xx1:
-    pos = xx1.index(ii)
-    print(pos)
-    ii = round(ii, 1)
-    xx1[pos] = ii
+# 長條圖數值
+# for x, y in enumerate(xx1):
+#     plt.text(x, y+5, '%s'%y, ha='center')
+# for x, y in enumerate(xx2):
+#     plt.text(x+width, y+5, '%s'%y, ha='center')
+# for x, y in enumerate(xx3):
+#     plt.text(x+width*2, y+5, '%s'%y, ha='center')
 
-for ii in xx2:
-    pos = xx2.index(ii)
-    print(pos)
-    ii = round(ii, 1)
-    xx2[pos] = ii
+# 長條圖
+# plt.bar(np.arange(len(xsign)), xx1, width, label='PID', hatch='x')
+# plt.bar(np.arange(len(xsign)) + width, xx2, width, label='Poisson', hatch='///')
+# plt.bar(np.arange(len(xsign)) + width*2, xx3, width, label='Coverage', hatch='-')
+# plt.xticks(np.arange(len(xsign)) + width, xsign)
+# plt.xlabel("people")
+# # plt.ylabel("num", rotation=0, loc='left')
+# plt.ylabel("error")
+# # plt.annotate("12333333333333333", (0, 0))
 
-for ii in xx3:
-    pos = xx3.index(ii)
-    print(pos)
-    ii = round(ii, 1)
-    xx3[pos] = ii
+# 折線圖
+x = np.arange(50)
+timeslotrecord = [50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.49, 11.49, 11.49, 11.49, 11.49, 14.86, 14.86, 14.86, 14.86, 14.86, 17.16, 17.16, 17.16, 17.16, 17.16, 12.21, 12.21, 12.21, 12.21, 12.21, 4.82, 4.82, 4.82, 4.82, 4.82, 10.24, 10.24, 10.24, 10.24, 10.24, 16.08, 16.08, 16.08, 16.08, 16.08]
+countrecord = [65, 66, 79, 50, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 12, 9, 10, 10, 17, 16, 18, 13, 16, 24, 18, 16, 15, 22, 11, 11, 21, 17, 18, 5, 3, 6, 7, 7, 10, 8, 11, 13, 8, 14, 17, 14, 10, 16]
+dif = np.array([timeslotrecord, countrecord])
+diff = np.diff(dif, axis=0)
+diff2 = diff.tolist()
 
-# 直線圖數值
-for x, y in enumerate(xx1):
-    plt.text(x, y+5, '%s'%y, ha='center')
-for x, y in enumerate(xx2):
-    plt.text(x+width, y+5, '%s'%y, ha='center')
-for x, y in enumerate(xx3):
-    plt.text(x+width*2, y+5, '%s'%y, ha='center')
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx()
 
-plt.bar(np.arange(len(xsign)), xx1, width, label='PID')
-plt.bar(np.arange(len(xsign)) + width, xx2, width, label='Poisson')
-plt.bar(np.arange(len(xsign)) + width*2, xx3, width, label='Coverage')
-plt.xticks(np.arange(len(xsign)) + width, xsign)
-plt.xlabel("people")
-# plt.ylabel("num", rotation=0, loc='left')
-plt.ylabel("error")
-# plt.annotate("12333333333333333", (0, 0))
+y1 = timeslotrecord
+ax2.plot(x, y1, label='timeslotrecord')
+
+y2 = countrecord
+ax2.plot(x, y2, label='countrecord')
+
 plt.legend(bbox_to_anchor=(0.9, 1), loc='upper left')
-plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
+
+y3 = diff2[0]
+minusy3 = []
+for i in range(len(y3)):
+    if y3[i] < 0:
+        y3[i] *= -1
+        minusy3.append(i)
+
+bars = ax1.bar(x, y3, label='diff', color='white', edgecolor='red')
+for i in range(len(y3)):
+    if (i in minusy3) is True:
+        bars[i].set_edgecolor('green')
+
+# 右上圖例
+# plt.legend(bbox_to_anchor=(0.9, 1), loc='upper left')
+ax1.legend(bbox_to_anchor=(1, 0.95), loc='upper left')
+ax2.legend(bbox_to_anchor=(1, 0.85), loc='upper left')
+plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(10))
 plt.show()
 # ----------------------------------------------------------------------------
 

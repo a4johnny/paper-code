@@ -51,15 +51,15 @@ def newCoverageFC (lifenumlist, life):
 
 if __name__ == '__main__':
     LT = 30  # 最長 lifetime
-    LTrange = 10
+    LTrange = 20
     timeslot = 5
-    totalcycle = 100
+    totalcycle = 10
     fu = 0
     # p = 1050
-    needK = 5  # k=2000
+    needK = 250  # k=2000
     originK = needK
     # n = random.randint(150, 150)  # n=1000 人數
-    user, area = rw.userinit(90)
+    user, area = rw.userinit(9000)
     n = area[5]
     p = poi.Pcal(needK, n)
     trueP = p
@@ -82,6 +82,9 @@ if __name__ == '__main__':
     CollectDelay = 1
     lifenum = 0  # 現有數量
     totaln = 0
+    needpartkrecord = []
+    countrecord = []
+
     for num in range(int(lifetimesum)):  # lifetime 初始化  *3 放收集到資料的lifetime
         lifetime[num] = -1
         OriginLifetime[num] = -1
@@ -103,6 +106,7 @@ if __name__ == '__main__':
         coveragelist = []
         nowlifenumlist = []
         deltaP = 0
+        lastcount = 0
         deltaPlist = []
         for ii in range(timeslot):  # 5個time slot
             nownum222 += 1
@@ -128,6 +132,8 @@ if __name__ == '__main__':
                                     continue
                                 elif num2 == lifetime[num]:
                                     lifenum2[num2] += 1
+
+            needpartkrecord.append(round(needpartK, 2))
 
             if i == 0:
                 if ii == 0:
@@ -186,7 +192,8 @@ if __name__ == '__main__':
                             OriginLifetime[num] = randomLife
                             AllLifeList.append(randomLife)
                             break
-
+            countrecord.append(round(count - lastcount, 2))
+            lastcount = count
             partlist.append(count)
 
             # if i != 0:
@@ -396,9 +403,13 @@ if __name__ == '__main__':
     print("aveLifetime:", AllLife/iiii, iiii)
     print("coverageFirst:", coverageFirst)
     print("平均人數:", totaln / totalcycle)
+    print("timeslot 需求:", needpartkrecord)
+    print("每次獲得", countrecord)
+    dif = np.array([needpartkrecord, countrecord])
+    print("收集差:", np.diff(dif, axis=0))
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.xticks(fontsize=9)
-    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(1))
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(10))
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(25))
     plt.show()
