@@ -163,41 +163,45 @@ xxx = np.arange(len(xsign))
 # plt.ylabel("error")
 # # plt.annotate("12333333333333333", (0, 0))
 
-# 折線圖
-x = np.arange(50)
-timeslotrecord = [50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.49, 11.49, 11.49, 11.49, 11.49, 14.86, 14.86, 14.86, 14.86, 14.86, 17.16, 17.16, 17.16, 17.16, 17.16, 12.21, 12.21, 12.21, 12.21, 12.21, 4.82, 4.82, 4.82, 4.82, 4.82, 10.24, 10.24, 10.24, 10.24, 10.24, 16.08, 16.08, 16.08, 16.08, 16.08]
-countrecord = [65, 66, 79, 50, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 12, 9, 10, 10, 17, 16, 18, 13, 16, 24, 18, 16, 15, 22, 11, 11, 21, 17, 18, 5, 3, 6, 7, 7, 10, 8, 11, 13, 8, 14, 17, 14, 10, 16]
-dif = np.array([timeslotrecord, countrecord])
-diff = np.diff(dif, axis=0)
-diff2 = diff.tolist()
+# # 折線圖 (雙子圖)
+# x = np.arange(50)
+# timeslotrecord = [50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 11.49, 11.49, 11.49, 11.49, 11.49, 14.86, 14.86, 14.86, 14.86, 14.86, 17.16, 17.16, 17.16, 17.16, 17.16, 12.21, 12.21, 12.21, 12.21, 12.21, 4.82, 4.82, 4.82, 4.82, 4.82, 10.24, 10.24, 10.24, 10.24, 10.24, 16.08, 16.08, 16.08, 16.08, 16.08]
+# countrecord = [65, 66, 79, 50, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 12, 9, 10, 10, 17, 16, 18, 13, 16, 24, 18, 16, 15, 22, 11, 11, 21, 17, 18, 5, 3, 6, 7, 7, 10, 8, 11, 13, 8, 14, 17, 14, 10, 16]
+# dif = np.array([timeslotrecord, countrecord])
+# diff = np.diff(dif, axis=0)
+# diff2 = diff.tolist()
+#
+# fig, ax1 = plt.subplots()
+# ax2 = ax1.twinx()
+#
+# y1 = timeslotrecord
+# ax2.plot(x, y1, label='timeslotrecord')
+#
+# y2 = countrecord
+# ax2.plot(x, y2, '--', label='countrecord')
+# # s>只有方塊 s->方塊+線 ^三角形
+#
+# y3 = diff2[0]
+# minusy3 = []
+# for i in range(len(y3)):
+#     if y3[i] < 0:
+#         y3[i] *= -1
+#         minusy3.append(i)
+#
+# bars = ax1.bar(x, y3, label='diff', color='white', edgecolor='red', hatch='//')
+# for i in range(len(y3)):
+#     if (i in minusy3) is True:
+#         bars[i].set_edgecolor('green')
+#         bars[i].set_hatch('-')
+#
+# ax1.legend(bbox_to_anchor=(1, 0.95), loc='best')
+# ax2.legend(bbox_to_anchor=(1, 0.85), loc='best')
 
-fig, ax1 = plt.subplots()
-ax2 = ax1.twinx()
 
-y1 = timeslotrecord
-ax2.plot(x, y1, label='timeslotrecord')
-
-y2 = countrecord
-ax2.plot(x, y2, label='countrecord')
-
-plt.legend(bbox_to_anchor=(0.9, 1), loc='upper left')
-
-y3 = diff2[0]
-minusy3 = []
-for i in range(len(y3)):
-    if y3[i] < 0:
-        y3[i] *= -1
-        minusy3.append(i)
-
-bars = ax1.bar(x, y3, label='diff', color='white', edgecolor='red')
-for i in range(len(y3)):
-    if (i in minusy3) is True:
-        bars[i].set_edgecolor('green')
 
 # 右上圖例
 # plt.legend(bbox_to_anchor=(0.9, 1), loc='upper left')
-ax1.legend(bbox_to_anchor=(1, 0.95), loc='upper left')
-ax2.legend(bbox_to_anchor=(1, 0.85), loc='upper left')
+plt.legend(bbox_to_anchor=(0.9, 1), loc='best')
 plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(10))
 plt.show()
 # ----------------------------------------------------------------------------

@@ -53,7 +53,7 @@ if __name__ == '__main__':
     LT = 30  # 最長 lifetime
     LTrange = 20
     timeslot = 5
-    totalcycle = 10
+    totalcycle = 100
     fu = 0
     # p = 1050
     needK = 250  # k=2000
@@ -402,14 +402,17 @@ if __name__ == '__main__':
         AllLife += AllLifeList[iiii]
     print("aveLifetime:", AllLife/iiii, iiii)
     print("coverageFirst:", coverageFirst)
+    print("AllCoverage:", coverageFirst + coverageAll)
     print("平均人數:", totaln / totalcycle)
     print("timeslot 需求:", needpartkrecord)
     print("每次獲得", countrecord)
+    print("db data 平均lt", totalLife/lifenum)
+    print("持有量:", lifenumlist)
     dif = np.array([needpartkrecord, countrecord])
-    print("收集差:", np.diff(dif, axis=0))
+    # print("收集差:", np.diff(dif, axis=0))
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.xticks(fontsize=9)
-    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(10))
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(50))
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(25))
     plt.show()

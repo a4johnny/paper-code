@@ -367,6 +367,7 @@ if __name__ == '__main__':
         AllLife += AllLifeList[iiii]
     print("aveLifetime:", AllLife/iiii, iiii)
     print("coverageFirst:", coverageFirst)
+    print("AllCoverage:", coverageFirst + coverageAll)
     print("平均人數:", totaln/totalcycle)
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
