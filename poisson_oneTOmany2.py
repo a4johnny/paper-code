@@ -17,7 +17,7 @@ def Pcal (delp, trueN):
     count = 0
     pp = []
     print("人數:", n)
-    for i in range(10000) :
+    for i in range(10000):
         count = count + 0.0001
         pp.append(count)
 
@@ -46,5 +46,7 @@ def Pcal (delp, trueN):
 
     # plt.plot(np.arange(10000), bb2)
     # plt.show()
+    if delp > n*5 and thePP == 0:
+        thePP = 1
     print("thePP : ", thePP)
     return int(thePP*10000)
