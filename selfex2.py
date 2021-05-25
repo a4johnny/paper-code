@@ -111,13 +111,13 @@ xxx = np.arange(len(xsign))
 
 # -------------------------------------------------------------------------
 # low timeslot 2%外數量
-# xx1 = [np.mean(a9000l98), np.mean(a900l98), np.mean(a90l98)]
-# xx2 = [np.mean(b9000l98), np.mean(b900l98), np.mean(b90l98)]
-# xx3 = [np.mean(c9000l98), np.mean(c900l98), np.mean(c90l98)]
+xx1 = [np.mean(a9000l98), np.mean(a900l98), np.mean(a90l98)]
+xx2 = [np.mean(b9000l98), np.mean(b900l98), np.mean(b90l98)]
+xx3 = [np.mean(c9000l98), np.mean(c900l98), np.mean(c90l98)]
 # 平均缺少筆數百分比
-# xx1 = [(500 - np.mean(a9000ln))/500, (50 - np.mean(a900ln))/50, (5 - np.mean(a90ln))/5]
-# xx2 = [(500 - np.mean(b9000ln))/500, (50 - np.mean(b900ln))/50, (5 - np.mean(b90ln))/5]
-# xx3 = [(500 - np.mean(c9000ln))/500, (50 - np.mean(c900ln))/50, (5 - np.mean(c90ln))/5]
+xxx1 = [(500 - np.mean(a9000ln))/500, (50 - np.mean(a900ln))/50, (5 - np.mean(a90ln))/5]
+xxx2 = [(500 - np.mean(b9000ln))/500, (50 - np.mean(b900ln))/50, (5 - np.mean(b90ln))/5]
+xxx3 = [(500 - np.mean(c9000ln))/500, (50 - np.mean(c900ln))/50, (5 - np.mean(c90ln))/5]
 # 平均多餘筆數
 # xx1 = [(np.mean(a9000bn)-500), (np.mean(a900bn)-50), (np.mean(a90bn)-5)]
 # xx2 = [(np.mean(b9000bn)-500), (np.mean(b900bn)-50), (np.mean(b90bn)-5)]
@@ -193,6 +193,7 @@ xxx = np.arange(len(xsign))
 #     if (i in minusy3) is True:
 #         bars[i].set_edgecolor('green')
 #         bars[i].set_hatch('-')
+#         bars[i].set_label='diff-'
 #
 # ax1.legend(bbox_to_anchor=(1, 0.95), loc='best')
 # ax2.legend(bbox_to_anchor=(1, 0.85), loc='best')
