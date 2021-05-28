@@ -50,16 +50,16 @@ def newCoverageFC (lifenumlist, life):
 
 
 if __name__ == '__main__':
-    LT = 30  # 最長 lifetime
+    LT = 40 # 最長 lifetime
     LTrange = 20
     timeslot = 5
     totalcycle = 100
     fu = 0
     # p = 1050
-    needK = 250  # k=2000
+    needK = 50  # k=2000
     originK = needK
     # n = random.randint(150, 150)  # n=1000 人數
-    user, area = rw.userinit(90)
+    user, area = rw.userinit(9000)
     n = area[5]
     p = poi.Pcal(needK, n)
     trueP = p
@@ -413,6 +413,7 @@ if __name__ == '__main__':
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.xticks(fontsize=9)
+    plt.ylim([0, 500])
     plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(50))
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(25))
     plt.show()

@@ -135,7 +135,7 @@ for i in d:
         ii = 1499
     list4[int(ii)] += 1
 
-pdf = np.array(list1)/500
+pdf = np.array(list2)/500
 x = np.arange(0, 1.5, 0.001)
 for i in range(len(list1)):
     if i == 0:
@@ -158,14 +158,16 @@ cdf4 = yyyy/list4[len(list4)-1]
 #  plt.plot(x, pdf)
 xxx = np.cumsum(cdf3*0.005)
 
-plt.plot(x, cdf, '-.', label='120')
-
-plt.plot(x, cdf3, '--', label='60')
-plt.plot(x, cdf2, '-', label='30')
-plt.plot(x, cdf4, ':', label='7')
+plt.plot(x, pdf, label='pdf')
+# plt.plot(x, cdf, '-.', label='120')
+#
+# plt.plot(x, cdf3, '--', label='60')
+# plt.plot(x, cdf2, '-', label='30')
+# plt.plot(x, cdf4, ':', label='7')
 
 plt.legend(bbox_to_anchor=(1, 1), loc='best')
 plt.grid()
+plt.xlim([0, 1.2])
 plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(0.1))
 # print(len(a), len(b))
 plt.show()
