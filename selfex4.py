@@ -105,7 +105,7 @@ dblt120 = [90.55094339622642, 90.96370967741936, 87.9563492063492, 88.6626984126
 
 
 xsign = ['9000', '900', '90']
-xsign2 = ['7', '20', '60', '120']
+xsign2 = ['500', '50']
 x1 = [np.mean(a9000l), np.mean(a900l), np.mean(a90l)]
 x2 = [np.mean(b9000l), np.mean(b900l), np.mean(b90l)]
 x3 = [np.mean(c9000l), np.mean(c900l), np.mean(c90l)]
@@ -113,7 +113,9 @@ width = 0.2
 xxx = np.arange(len(xsign))
 
 # y1 = 平均得到 lt, y2 = db 平均 lt
-
+y1 = [np.mean(getlt7), np.mean(getlt20), np.mean(getlt60), np.mean(getlt120)]
+y2 = [np.mean(dblt7), np.mean(dblt20), np.mean(dblt60), np.mean(dblt120)]
+yy1 = [round(a/b, 2) for a, b in zip(y2, y1)]
 
 # low timeslot 2%外數量
 xx1 = [np.mean(a9000l98), np.mean(a900l98), np.mean(a90l98)]
@@ -140,40 +142,52 @@ xxxxx1 = [(np.mean(a9000bn)-500)/500, (np.mean(a900bn)-50)/50, (np.mean(a90bn)-5
 xxxxx2 = [(np.mean(b9000bn)-500)/500, (np.mean(b900bn)-50)/50, (np.mean(b90bn)-5)/5]
 xxxxx3 = [(np.mean(c9000bn)-500)/500, (np.mean(c900bn)-50)/50, (np.mean(c90bn)-5)/5]
 
+h500 = [5, 6, 7, 5, 9]
+h50 = [16, 5, 5, 5, 5]
+l500 = [25, 26, 52, 36, 30]
+l50 = [53, 67, 30, 39, 30]
+p500 = [126, 44, 44]
+p50 = [47, 125, 112]
+
+h = [np.mean(h500), np.mean(h50)]
+l = [np.mean(l500), np.mean(l50)]
+p = [round(np.mean(p500), 1), round(np.mean(p50), 1)]
+
 # 雙子圖
 fig, ax1 = plt.subplots()
-ax2 = ax1.twinx()
+# ax2 = ax1.twinx()
 
 # 長條圖數值
-for x, y in enumerate(xxxx1):
-    ax1.text(x, y+5, '%s'%y, ha='center')
-for x, y in enumerate(xxxx2):
-    ax1.text(x+width, y+5, '%s'%y, ha='center')
-for x, y in enumerate(xxxx3):
-    ax1.text(x+width*2, y+5, '%s'%y, ha='center')
+for x, y in enumerate(h):
+    ax1.text(x, y+2, '%s'%y, ha='center')
+for x, y in enumerate(l):
+    ax1.text(x+width, y+2, '%s'%y, ha='center')
+for x, y in enumerate(p):
+    ax1.text(x+width*2, y+2, '%s'%y, ha='center')
 
 # 長條圖
-ax1.bar(np.arange(len(xsign)), xxxx1, width, label='PID', hatch='o', color='white', edgecolor='black')
-ax1.bar(np.arange(len(xsign)) + width, xxxx2, width, label='Poisson', hatch='*', color='white', edgecolor='red')
-ax1.bar(np.arange(len(xsign)) + width*2, xxxx3, width, label='Coverage', hatch='x', color='white', edgecolor='blue')
+ax1.bar(np.arange(len(xsign2)), h, width, label='high', hatch='o', color='white', edgecolor='black')
+ax1.bar(np.arange(len(xsign2)) + width, l, width, label='low', hatch='*', color='white', edgecolor='red')
+ax1.bar(np.arange(len(xsign2)) + width*2, p, width, label='poisson', hatch='x', color='white', edgecolor='blue')
 
 # 折線圖
-ax2.plot(xxx + width, xxxxx1, 'o--', label='PID')
-ax2.plot(xxx + width, xxxxx2, '*--', label='Poisson')
-ax2.plot(xxx + width, xxxxx3, 'x--', label='Coverage')
+# ax2.plot(xxx + width, xxxxx1, 'o--', label='PID')
+# ax2.plot(xxx + width, xxxxx2, '*--', label='Poisson')
+# ax2.plot(xxx + width, xxxxx3, 'x--', label='Coverage')
 
 # x軸間隔 和 x 軸數字
-plt.xticks(np.arange(len(xsign)) + width, xsign)
+plt.xticks(np.arange(len(xsign2)) + width, xsign2)
 
 # 右上圖標
-# ax1.legend(bbox_to_anchor=(1.1, 1), loc='best')
-ax2.legend(bbox_to_anchor=(0.5, 1), loc='best')
+ax1.legend(bbox_to_anchor=(1.1, 1), loc='best')
+# ax2.legend(bbox_to_anchor=(0.5, 1), loc='best')
 
 ax1.yaxis.set_major_locator(ticker.MultipleLocator(10))
-ax1.set_ylim([0, 70])
+ax1.set_ylim([0, 100])
 
-ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
-ax2.set_ylim([-0.5, 0.5])
+# ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
+# ax2.set_ylim([-0.5, 0.5])
 
-ax2.grid()
+ax1.grid()
+# ax2.grid()
 plt.show()

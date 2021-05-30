@@ -50,16 +50,16 @@ def newCoverageFC (lifenumlist, life):
 
 
 if __name__ == '__main__':
-    LT = 30  # 最長 lifetime
+    LT = 40  # 最長 lifetime
     LTrange = 20
     timeslot = 5
     totalcycle = 100
     fu = 0
     # p = 1050
-    needK = 5  # k=2000
+    needK = 50  # k=2000
     originK = needK
     # n = random.randint(150, 150)  # n=1000 人數
-    user, area = rw.userinit(90)
+    user, area = rw.userinit(9000)
     n = area[5]
     p = poi.Pcal(needK, n)
     trueP = p
@@ -82,6 +82,8 @@ if __name__ == '__main__':
     CollectDelay = 1
     lifenum = 0  # 現有數量
     totaln = 0
+    needpartkrecord = []
+    countrecord = []
     for num in range(int(lifetimesum)):  # lifetime 初始化  *3 放收集到資料的lifetime
         lifetime[num] = -1
         OriginLifetime[num] = -1
@@ -103,6 +105,7 @@ if __name__ == '__main__':
         coveragelist = []
         nowlifenumlist = []
         deltaP = 0
+        lastcount = 0
         deltaPlist = []
         for ii in range(timeslot):  # 5個time slot
             nownum222 += 1
@@ -129,6 +132,7 @@ if __name__ == '__main__':
                                 elif num2 == lifetime[num]:
                                     lifenum2[num2] += 1
 
+            needpartkrecord.append(round(needpartK, 2))
             if i == 0:
                 if ii == 0:
                     coverageFirst.append(round(0, 5))
@@ -188,7 +192,8 @@ if __name__ == '__main__':
                             break
 
             partlist.append(count)
-
+            countrecord.append(round(count - lastcount, 2))
+            lastcount = count
             lifenumlist.append(lifenum+count)
             nowlifenumlist.append(lifenum)
             # 校正P
@@ -369,9 +374,12 @@ if __name__ == '__main__':
     print("coverageFirst:", coverageFirst)
     print("AllCoverage:", coverageFirst + coverageAll)
     print("平均人數:", totaln/totalcycle)
+    print("持有量:", lifenumlist)
+    print("每次獲得", countrecord)
+    print("timeslot 需求:", needpartkrecord)
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.xticks(fontsize=9)
-    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(1))
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(50))
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(25))
     plt.show()
