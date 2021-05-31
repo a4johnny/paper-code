@@ -51,7 +51,7 @@ def init(user):
 
 
 if __name__ == '__main__':
-    needk = 50
+    needk = 250
     user, area = rw.userinit(9000)
     for n in range(5):
         user, area = rw.rw(user, area)
@@ -65,4 +65,5 @@ if __name__ == '__main__':
     # print(user.areal, b)
     user = init(user)
     p = pick(user, needk)
+    print(len(p))
 

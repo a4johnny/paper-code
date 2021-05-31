@@ -56,11 +56,12 @@ if __name__ == '__main__':
     totalcycle = 100
     fu = 0
     # p = 1050
-    needK = 50  # k=2000
+    needK = 900  # k=2000
     originK = needK
     # n = random.randint(150, 150)  # n=1000 人數
     user, area = rw.userinit(9000)
     n = area[5]
+    people = [n]
     p = poi.Pcal(needK, n)
     trueP = p
     needpartK = needK/timeslot
@@ -268,6 +269,7 @@ if __name__ == '__main__':
                 needpartK = needK/timeslot
                 user, area = rw.rw(user, area)
                 n = area[5]
+                people.append(n)
                 totaln += n
                 p = poi.Pcal(k1, n)  # round 四捨五入
                 print("newcoverage:", Newcoverage)
@@ -408,6 +410,7 @@ if __name__ == '__main__':
     print("每次獲得", countrecord)
     print("db data 平均lt", totalLife/lifenum)
     print("持有量:", lifenumlist)
+    print("人口變化:", people)
     dif = np.array([needpartkrecord, countrecord])
     # print("收集差:", np.diff(dif, axis=0))
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
