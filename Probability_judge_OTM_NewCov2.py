@@ -56,12 +56,14 @@ if __name__ == '__main__':
     totalcycle = 100
     fu = 0
     # p = 1050
-    needK = 900  # k=2000
+    needK = 500  # k=2000
     originK = needK
     # n = random.randint(150, 150)  # n=1000 人數
     user, area = rw.userinit(9000)
     n = area[5]
+    nall = area[0]
     people = [n]
+    peopleall = [nall]
     p = poi.Pcal(needK, n)
     trueP = p
     needpartK = needK/timeslot
@@ -269,7 +271,9 @@ if __name__ == '__main__':
                 needpartK = needK/timeslot
                 user, area = rw.rw(user, area)
                 n = area[5]
-                people.append(n)
+                nall = area[0]
+                people.append(nall)
+                peopleall.append(nall)
                 totaln += n
                 p = poi.Pcal(k1, n)  # round 四捨五入
                 print("newcoverage:", Newcoverage)
@@ -411,12 +415,13 @@ if __name__ == '__main__':
     print("db data 平均lt", totalLife/lifenum)
     print("持有量:", lifenumlist)
     print("人口變化:", people)
+    print("總人口:", peopleall)
     dif = np.array([needpartkrecord, countrecord])
     # print("收集差:", np.diff(dif, axis=0))
     a = plt.plot(np.arange(timeslot * totalcycle), lifenumlist, linewidth=1)
     # plt.xaxis.set_major_locator(ticker.MultipleLocator(100))
     plt.xticks(fontsize=9)
-    plt.ylim([0, 500])
+    # plt.ylim([0, 550])
     plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(50))
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(25))
     plt.show()

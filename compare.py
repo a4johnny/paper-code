@@ -46,7 +46,7 @@ def init(user):
         k = 9  # 所有區域數
         CD = len(i.areal)/k1
         CP = long/k
-        i.F = a * CP + b * CD
+        i.F = a * CP + b * math.log(CD)
     return user
 
 
@@ -65,5 +65,5 @@ if __name__ == '__main__':
     # print(user.areal, b)
     user = init(user)
     p = pick(user, needk)
-    print(len(p))
+    print(p)
 
