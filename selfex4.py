@@ -179,7 +179,7 @@ ax1.bar(np.arange(len(xsign2)) + width*2, p, width, label='poisson', hatch='x', 
 plt.xticks(np.arange(len(xsign2)) + width, xsign2)
 
 # 右上圖標
-ax1.legend(bbox_to_anchor=(1.1, 1), loc='best')
+ax1.legend(bbox_to_anchor=(1, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
 # ax2.legend(bbox_to_anchor=(0.5, 1), loc='best')
 
 ax1.yaxis.set_major_locator(ticker.MultipleLocator(10))
