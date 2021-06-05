@@ -27,8 +27,8 @@ def addman(areacount, user):
         u.area = areajudge(u)
         areacount[u.area] += 1
         user.append(u)
-    print("--------------------")
-    print("add:", addn)
+    # print("--------------------")
+    # print("add:", addn)
     return areacount
 
 
@@ -99,8 +99,8 @@ def rw(user, areacount):  # 隨機亂走
     for iii in range(10):
         areacount[0] += areacount[iii]
 
-    print("loss:", loss)
-    print("areacount:", areacount)
+    # print("loss:", loss)
+    # print("areacount:", areacount)
     return user, areacount
 
 

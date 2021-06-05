@@ -14,17 +14,20 @@ import ramdom_walk as rw
 
 def pick(user, needk):
     picker = []
+    pickerf = []
     pickerarea = []
     for i in user:
         stop = 0
-        if len(picker) < needk:
-            picker.append(i.F)
+        if len(pickerf) < needk:
+            picker.append(i)
+            pickerf.append(i.F)
             pickerarea.append(i.area)
-        elif len(picker) >= needk:
-            if i.F > min(picker):
-                pos = picker.index(min(picker))
-                picker[pos] = i.F
-                pickerarea[pos] = i.area
+        elif len(pickerf) >= needk:
+            if i.F > min(pickerf):
+                pos = pickerf.index(min(pickerf))
+                picker[pos] = i
+                pickerf[pos] = i.F
+                pickerarea[pos] = i.areal
     # for i in picker:
     #     print(i)
     # print(len(picker))
@@ -35,7 +38,7 @@ def pick(user, needk):
 
 
 def init(user):
-    w = 5  # 目標區域權重
+    w = 1  # 目標區域權重
     a = 1
     b = 0.3
     for i in user:
@@ -53,6 +56,7 @@ def init(user):
 if __name__ == '__main__':
     needk = 500
     coveragelist = []
+    nmlist = []
     user, area = rw.userinit(9000)
     for time in range(100):
         for n in range(5):
@@ -64,15 +68,21 @@ if __name__ == '__main__':
         user = init(user)
         p, pa = pick(user, needk)
         nm = 0
-        for i in pa:
-            if i is 5:
+        for i in range(needk):
+            if (5 in p[i].areal) is True:
                 nm += 1
 
         coverage = nm/needk
-        coveragelist.append(coverage)
+        for iii in range(5):
+            nmlist.append(nm)
+            coveragelist.append(coverage)
         print('coverage:', coverage, 'time:', time, user[1].areal)
-    x = np.arange(100)
-    plt.plot(x, coveragelist)
-    plt.show()
-    print(np.mean(coveragelist))
+    x = np.arange(500)
+    plt.plot(x, nmlist)
+    plt.ylim([0, 500])
+    plt.grid()
+    # plt.show()
+    print('nm:', nmlist)
+    print('coverage:', coveragelist)
+    print(round(np.mean(coveragelist), 3))
 
