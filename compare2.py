@@ -54,7 +54,7 @@ def init(user):
 
 
 if __name__ == '__main__':
-    needk = 500
+    needk = 830
     coveragelist = []
     nmlist = []
     user, area = rw.userinit(9000)
@@ -72,16 +72,16 @@ if __name__ == '__main__':
             if (5 in p[i].areal) is True:
                 nm += 1
 
-        coverage = nm/needk
+        coverage = nm/500
         for iii in range(5):
             nmlist.append(nm)
             coveragelist.append(coverage)
         print('coverage:', coverage, 'time:', time, user[1].areal)
     x = np.arange(500)
     plt.plot(x, nmlist)
-    plt.ylim([0, 500])
+    plt.ylim([0, 100])
     plt.grid()
-    # plt.show()
+    plt.show()
     print('nm:', nmlist)
     print('coverage:', coveragelist)
     print(round(np.mean(coveragelist), 3))

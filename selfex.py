@@ -138,7 +138,7 @@ for i in b:
         ii = 1499
     list2[int(ii)] += 1
 
-for i in c1:
+for i in c:
     ii = i*1000
     if ii >= 1500:
         ii = 1499
@@ -151,7 +151,7 @@ for i in d:
     list4[int(ii)] += 1
 
 # pdf = np.array(list1)/500   # 0.01 不轉百分比
-pdf = np.array(list1)/500
+pdf = np.array(list3)/500
 x = np.arange(0, 1.5, 0.001)
 for i in range(len(list1)):
     if i == 0:
@@ -198,37 +198,37 @@ xxx = np.cumsum(cdf3*0.005)
 
 # ---------------------------------------------------------------
 # 震幅變化
-# fig, ax1 = plt.subplots()
-# ax2 = ax1.twinx()
-#
-# # plt.rcParams['font.sans-serif'] = ['SimHei']
-# plt.rcParams['axes.unicode_minus'] = False
-#
-# ax1.plot(x, cdf, '--', label='cdf')
-# ax2.plot(x, pdf, label='pdf')
-#
-# ax1.legend(bbox_to_anchor=(1, 0.95), loc='best')
-# ax2.legend(bbox_to_anchor=(1, 0.87), loc='best')
-#
-# ax2.set_ylim([0, 0.2])
-#
-# ax1.set_ylabel('cdf', fontsize='15')
-# ax2.set_ylabel('pdf', fontsize='15')
-#
-# plt.title('Amplitude Variation')
-# ax1.set_xlabel('percent of collected data/required data')
-# plt.grid()
-# plt.xlim([0.7, 1.2])
-# plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(0.05))
-# plt.show()
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx()
+
+# plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+ax1.plot(x, cdf3, '--', label='cdf')
+ax2.plot(x, pdf, label='pdf')
+
+ax1.legend(bbox_to_anchor=(1, 0.95), loc='best')
+ax2.legend(bbox_to_anchor=(1, 0.87), loc='best')
+
+ax2.set_ylim([0, 0.2])
+
+ax1.set_ylabel('cdf', fontsize='15')
+ax2.set_ylabel('pdf', fontsize='15')
+
+plt.title('Amplitude Variation')
+ax1.set_xlabel('percent of collected data/required data')
+plt.grid()
+plt.xlim([0.7, 1.2])
+plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(0.05))
+plt.show()
 # -------------------------------------------------------------------
 # 簡單 coverage cdf
 
-plt.plot(x, cdf, '-', label='PID', color='black')
-plt.plot(x, cdf2, '--', label='Poisson')
-plt.plot(x, cdf4, '-.', label='Trace')
-
-plt.legend(bbox_to_anchor=(1, 0.95), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
-
-plt.grid()
-plt.show()
+# plt.plot(x, cdf, '-', label='PID', color='black')
+# plt.plot(x, cdf2, '--', label='Poisson')
+# plt.plot(x, cdf4, '-.', label='Trace')
+#
+# plt.legend(bbox_to_anchor=(1, 0.95), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
+#
+# plt.grid()
+# plt.show()

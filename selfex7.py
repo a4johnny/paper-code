@@ -153,13 +153,14 @@ l500 = [25, 26, 52, 36, 30]
 l50 = [53, 67, 30, 39, 30]
 p500 = [126, 44, 44]
 p50 = [47, 125, 112]
-cp = [185, 30, 60, 35, 10, 60, 20, 35, 30, 145]
+cp500 = [185, 30, 60, 35, 10, 60, 20, 35, 30, 145]
+cp50 = []
 
 # h = [np.mean(h500), np.mean(h50)]
 l = [np.mean(l500), np.mean(l50)]
 p = [round(np.mean(p500), 1), round(np.mean(p50), 1)]
 
-h = [np.mean(h500), round(np.mean(p500), 1), round(np.mean(cp), 1)]
+h = [np.mean(h50), round(np.mean(p50), 1), round(np.mean(cp500), 1)]
 
 # 雙子圖
 fig, ax1 = plt.subplots()
