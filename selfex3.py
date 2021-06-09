@@ -238,6 +238,7 @@ covpoib = [x/500 for x in poib]
 covcpa = [x/500 for x in cpc]
 
 # ---------------------------------------------------------------------------
+# 初代上下分圖
 # x = np.arange(500)
 # fig, ax1 = plt.subplots()
 # ax2 = ax1.twinx()
@@ -276,59 +277,59 @@ covcpa = [x/500 for x in cpc]
 # plt.show()
 
 # ------------------------------------------------------------------
-# 上下分圖  持有/總量比
-x = np.arange(500)
-
-fig = plt.figure()
-
-ax1 = fig.add_axes([0.065, 0.5, 0.83, 0.4])
-ax2 = ax1.twinx()
-
-ax3 = fig.add_axes([0.065, 0.05, 0.83, 0.4])  # (左右位置, 上下位置, 左右長度, 上下長度)
-ax4 = ax3.twinx()
-
-newdiff = [(x-50)/50 for x in c]
-
-dif2 = np.array([poibneed, poibget])
-diff2 = np.diff(dif2, axis=0).tolist()
-# newdiff = [x/nd for x, nd in zip(diff[0], aneed)]
-newdiff2 = [(x-50)/50 for x in cpd]
-
-ax1.plot(x, c, label='Hold')
-# ax1.set_ylim([0, 550])
-ax1.set_ylim([0, 55])
-ax2.bar(x, newdiff, hatch='', label='Difference', width=1)
-ax2.set_ylim([-0.05, 0.2])
-
-ax3.plot(x, cpd, label='Hold')  # poib
-# ax3.set_ylim([0, 550])
-ax3.set_ylim([0, 65])
-ax4.bar(x, newdiff2, label='Difference', width=1)
-# ax4.set_ylim([-0.6, 1])
-ax4.set_ylim([-0.5, 0.5])
-
-ax1.legend(bbox_to_anchor=(1, 0.85), loc='best')
-ax2.legend(bbox_to_anchor=(1, 0.75), loc='best')
-ax3.legend(bbox_to_anchor=(0.75, 0.17), loc='best')
-ax4.legend(bbox_to_anchor=(1, 0.17), loc='best')
-# for poib
-# ax3.legend(bbox_to_anchor=(1, 0.61), loc='best', fontsize='10')
-# ax4.legend(bbox_to_anchor=(1, 0.2), loc='best', fontsize='10')
-
-ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.025))
-vals = ax2.get_yticks()
-ax2.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-
-ax3.yaxis.set_major_locator(ticker.MultipleLocator(10))
-ax4.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
-vals = ax4.get_yticks()
-ax4.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-
-ax1.grid()
-ax3.grid()
-
-# plt.tight_layout()
-plt.show()
+# # 上下分圖  持有/總量比
+# x = np.arange(500)
+#
+# fig = plt.figure()
+#
+# ax1 = fig.add_axes([0.065, 0.5, 0.83, 0.4])
+# ax2 = ax1.twinx()
+#
+# ax3 = fig.add_axes([0.065, 0.05, 0.83, 0.4])  # (左右位置, 上下位置, 左右長度, 上下長度)
+# ax4 = ax3.twinx()
+#
+# newdiff = [(x-50)/50 for x in c]
+#
+# dif2 = np.array([poibneed, poibget])
+# diff2 = np.diff(dif2, axis=0).tolist()
+# # newdiff = [x/nd for x, nd in zip(diff[0], aneed)]
+# newdiff2 = [(x-50)/50 for x in cpd]
+#
+# ax1.plot(x, c, label='Hold')
+# # ax1.set_ylim([0, 550])
+# ax1.set_ylim([0, 55])
+# ax2.bar(x, newdiff, hatch='', label='Difference', width=1)
+# ax2.set_ylim([-0.05, 0.2])
+#
+# ax3.plot(x, cpd, label='Hold')  # poib
+# # ax3.set_ylim([0, 550])
+# ax3.set_ylim([0, 65])
+# ax4.bar(x, newdiff2, label='Difference', width=1)
+# # ax4.set_ylim([-0.6, 1])
+# ax4.set_ylim([-0.5, 0.5])
+#
+# ax1.legend(bbox_to_anchor=(1, 0.85), loc='best')
+# ax2.legend(bbox_to_anchor=(1, 0.75), loc='best')
+# ax3.legend(bbox_to_anchor=(0.75, 0.17), loc='best')
+# ax4.legend(bbox_to_anchor=(1, 0.17), loc='best')
+# # for poib
+# # ax3.legend(bbox_to_anchor=(1, 0.61), loc='best', fontsize='10')
+# # ax4.legend(bbox_to_anchor=(1, 0.2), loc='best', fontsize='10')
+#
+# ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.025))
+# vals = ax2.get_yticks()
+# ax2.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+#
+# ax3.yaxis.set_major_locator(ticker.MultipleLocator(10))
+# ax4.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
+# vals = ax4.get_yticks()
+# ax4.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+#
+# ax1.grid()
+# ax3.grid()
+#
+# # plt.tight_layout()
+# plt.show()
 # -------------------------------------------------------------
 # 第一組 簡單圖
 # x = np.arange(500)
@@ -346,32 +347,32 @@ plt.show()
 # plt.show()
 # -------------------------------------------------------------
 # 第一組 簡單圖 上下分割
-# x = np.arange(500)
-#
-# fig = plt.figure()
-#
-# ax1 = fig.add_axes([0.065, 0.5, 0.83, 0.4])
-# ax3 = fig.add_axes([0.065, 0.05, 0.83, 0.4])  # (左右位置, 上下位置, 左右長度, 上下長度)
-#
-# ax1.plot(x, a, label='PID')  # c
-# ax1.plot(x, poib, '--', label='Poisson')  # poia
-# ax1.set_ylim([300, 750])
-#
-# ax3.plot(x, a, label='PID', color='black')  # c
-# ax3.plot(x, cpc, '--', label='Trace', color='black')  # cpd
-# ax3.set_ylim([450, 550])
-#
-# ax1.legend(bbox_to_anchor=(1, 1), loc='best')
-# ax3.legend(bbox_to_anchor=(1, 0.4), loc='best')
-#
-# ax1.yaxis.set_major_locator(ticker.MultipleLocator(50))
-# ax3.yaxis.set_major_locator(ticker.MultipleLocator(10))
-#
-# ax1.grid()
-# ax3.grid()
-#
-# # plt.tight_layout()
-# plt.show()
+x = np.arange(500)
+
+fig = plt.figure()
+
+ax1 = fig.add_axes([0.065, 0.5, 0.83, 0.4])
+ax3 = fig.add_axes([0.065, 0.05, 0.83, 0.4])  # (左右位置, 上下位置, 左右長度, 上下長度)
+
+ax1.plot(x, a, label='Our', color='black')  # c
+ax1.plot(x, poib, '--', label='Poisson', color='red')  # poia
+ax1.set_ylim([350, 550])
+
+ax3.plot(x, a, label='Our', color='black')  # c
+ax3.plot(x, cpc, '--', label='Compare')  # cpd
+ax3.set_ylim([350, 550])
+
+ax1.legend(bbox_to_anchor=(1, 1.21), loc='best', fontsize=9)
+ax3.legend(bbox_to_anchor=(1, 0.3), loc='best')
+
+ax1.yaxis.set_major_locator(ticker.MultipleLocator(50))
+ax3.yaxis.set_major_locator(ticker.MultipleLocator(50))
+
+ax1.grid()
+ax3.grid()
+
+# plt.tight_layout()
+plt.show()
 # -------------------------------------------------------------
 # 第一組 簡單圖 三重分身
 # x = np.arange(500)
