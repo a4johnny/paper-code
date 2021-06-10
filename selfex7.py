@@ -110,7 +110,7 @@ c = [(x-500)/500 for x in cpa]
 
 xsign = ['9000', '900', '90']
 xsign2 = ['500', '50']
-xsign3 = ['PID', 'Poisson', 'Trace']
+xsign3 = ['Our', 'Poisson', 'Compare']
 x1 = [np.mean(a9000l), np.mean(a900l), np.mean(a90l)]
 x2 = [np.mean(b9000l), np.mean(b900l), np.mean(b90l)]
 x3 = [np.mean(c9000l), np.mean(c900l), np.mean(c90l)]
@@ -160,7 +160,7 @@ cp50 = [10, 125, 135, 25, 35]
 l = [np.mean(l500), np.mean(l50)]
 p = [round(np.mean(p500), 1), round(np.mean(p50), 1), round(np.mean(cp50))]
 
-h = [np.mean(h50), round(np.mean(p50)), round(np.mean(cp50))]
+h = [np.mean(h50), round(np.mean(p50), 1), round(np.mean(cp50), 1)]
 
 # 雙子圖
 fig, ax1 = plt.subplots()
