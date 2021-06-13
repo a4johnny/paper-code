@@ -415,18 +415,83 @@ covcpa = [x/500 for x in cpc]
 # -------------------------------------------------------------
 # 第七組  lifetime不同 平均需求量
 
+# width = 0.2
+# xsign = ['7', '30', '60', '120']
+#
+# lex7, lex30, lex60, lex120 = -1, -1, -1, -1
+# count7, count30, count60, count120 = 0, 0, 0, 0
+# for ex7, ex30, ex60, ex120 in zip(ltaget, bget, ltbget, ltcget):
+#     if ex7 == lex7:
+#         count7 += 1
+#         lex7 = ex7
+#     elif ex7 != lex7:
+#         lex7 = ex7
+#
+#     if ex30 == lex30:
+#         count30 += 1
+#         lex30 = ex30
+#     elif ex30 != lex30:
+#         lex30 = ex30
+#
+#     if ex60 == lex60:
+#         count60 += 1
+#         lex60 = ex60
+#     elif ex60 != lex60:
+#         lex60 = ex60
+#
+#     if ex120 == lex120:
+#         count120 += 1
+#         lex120 = ex120
+#     elif ex120 != lex120:
+#         lex120 = ex120
+#
+# fig, ax1 = plt.subplots()
+# ax2 = ax1.twinx()
+#
+# bars = [np.mean(ltaneed), np.mean(bneed), np.mean(ltbneed), np.mean(ltcneed)]
+# bars2 = [(500-count7)/5, (500-count30)/5, (500-count60)/5, (500-count120)/5]
+#
+# ax1.bar(np.arange(len(xsign)), bars, width, hatch='/', edgecolor='black', color='white', label='Need')
+# ax2.bar(np.arange(len(xsign))+width, bars2, width, edgecolor='black', label='Time')
+# plt.xticks(np.arange(len(xsign))+width/2, xsign)
+#
+# ax1.legend(bbox_to_anchor=(1, 1.07), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
+# ax2.legend(bbox_to_anchor=(1, 1.00), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
+# # print(bars2)
+# ax1.grid()
+# plt.show()
+# -------------------------------------------------------------
+# 第六/七組  人數不同 COVERAGE 不夠數量
+
 width = 0.2
 xsign = ['7', '30', '60', '120']
 
-bars = [np.mean(ltaneed), np.mean(bneed), np.mean(ltbneed), np.mean(ltcneed)]
-# bars2 = [mad50, mad100, mad250, mad500]
+count7, count30, count60, count120 = 0, 0, 0, 0
+for ex7, ex30, ex60, ex120 in zip(lta5, b5, ltb5, ltc5):
+    if ex7 < 245:
+        count7 += 1
 
-plt.bar(np.arange(len(xsign)), bars, width, hatch='/', edgecolor='black', color='white', label='Need')
-# ax2.bar(np.arange(len(xsign))+width, bars2, width, edgecolor='black', label='MAD')
+    if ex30 < 245:
+        count30 += 1
+
+    if ex60 < 245:
+        count60 += 1
+
+    if ex120 < 245:
+        count120 += 1
+
+# fig, ax1 = plt.subplots()
+# ax2 = ax1.twinx()
+
+# bars = [np.mean(ltaneed), np.mean(bneed), np.mean(ltbneed), np.mean(ltcneed)]
+bars2 = [count7, count30, count60, count120]
+print(bars2)
+# ax1.bar(np.arange(len(xsign)), bars, width, hatch='/', edgecolor='black', color='white', label='Need')
+plt.bar(np.arange(len(xsign)), bars2, width, edgecolor='black', label='Time')
 plt.xticks(np.arange(len(xsign)), xsign)
 
-plt.legend(bbox_to_anchor=(1, 1.07), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
-
+# ax1.legend(bbox_to_anchor=(1, 1.07), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
+plt.legend(bbox_to_anchor=(1, 1.00), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
 # print(bars2)
 plt.grid()
 plt.show()

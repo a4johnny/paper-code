@@ -311,21 +311,40 @@ mad500 = pd.Series(c).mad()
 width = 0.2
 xsign = ['10', '50', '100', '500']
 
+count7, count30, count60, count120 = 0, 0, 0, 0
+for ex7, ex30, ex60, ex120 in zip(h, g, d, c):
+    if ex7 < 0.98:
+        count7 += 1
+
+    if ex30 < 0.98:
+        count30 += 1
+
+    if ex60 < 0.98:
+        count60 += 1
+
+    if ex120 < 0.98:
+        count120 += 1
+
 bars = [var10, var50, var100, var500]
 bars2 = [mad10, mad50, mad100, mad500]
+bars3 = [count7, count30, count60, count120]
 
-fig, ax1 = plt.subplots()
-ax2 = ax1.twinx()
+# fig, ax1 = plt.subplots()
+# ax2 = ax1.twinx()
+#
+# ax1.bar(np.arange(len(xsign)), bars, width, hatch='/', edgecolor='black', color='white', label='Var')
+# ax2.bar(np.arange(len(xsign))+width, bars2, width, edgecolor='black', label='MAD')
+# plt.xticks(np.arange(len(xsign))+width/2, xsign)
 
-ax1.bar(np.arange(len(xsign)), bars, width, hatch='/', edgecolor='black', color='white', label='Var')
-ax2.bar(np.arange(len(xsign))+width, bars2, width, edgecolor='black', label='MAD')
-plt.xticks(np.arange(len(xsign))+width/2, xsign)
+plt.bar(np.arange(len(xsign)), bars3, width, hatch='/', edgecolor='black', color='white', label='Loss')
+plt.xticks(np.arange(len(xsign)), xsign)
 
-ax1.legend(bbox_to_anchor=(1, 1.07), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
-ax2.legend(bbox_to_anchor=(1, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
+# ax1.legend(bbox_to_anchor=(1, 1.07), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
+# ax2.legend(bbox_to_anchor=(1, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
 
-print(bars2)
-ax1.grid()
+plt.legend(bbox_to_anchor=(1, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
+# ax1.grid()
+plt.grid()
 plt.show()
 # -------------------------------------------------------------
 # 第六組 簡單圖 人口/需求
