@@ -50,16 +50,16 @@ def newCoverageFC (lifenumlist, life):
 
 
 if __name__ == '__main__':
-    LT = 5  # 最長 lifetime
-    LTrange = 0
+    LT = 40  # 最長 lifetime
+    LTrange = 20
     timeslot = 5
     totalcycle = 100
     fu = 0
     # p = 1050
-    needK = 500  # k=2000
+    needK = 250  # k=2000
     originK = needK
     # n = random.randint(150, 150)  # n=1000 人數
-    user, area = rw.userinit(9000)
+    user, area = rw.userinit(135)
     n = area[5]
     nall = area[0]
     people = [n]

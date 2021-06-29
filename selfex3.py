@@ -480,60 +480,60 @@ covcpa = [x/500 for x in cpc]
 # -------------------------------------------------------------
 # new 第七組  lifetime不同 平均需求量
 
-width = 0.2
-xsign = ['7', '30', '60', '120']
-
-lex7, lex30, lex60, lex120 = -1, -1, -1, -1
-count7, count30, count60, count120 = 0, 0, 0, 0
-for ex7, ex30, ex60, ex120 in zip(ltaget, bget, ltbget, ltcget):
-    if ex7 == lex7:
-        count7 += 1
-        lex7 = ex7
-    elif ex7 != lex7:
-        lex7 = ex7
-
-    if ex30 == lex30:
-        count30 += 1
-        lex30 = ex30
-    elif ex30 != lex30:
-        lex30 = ex30
-
-    if ex60 == lex60:
-        count60 += 1
-        lex60 = ex60
-    elif ex60 != lex60:
-        lex60 = ex60
-
-    if ex120 == lex120:
-        count120 += 1
-        lex120 = ex120
-    elif ex120 != lex120:
-        lex120 = ex120
-
-difflta = [x/250 for x in lta]
-diffb = [x/250 for x in b]
-diffltb = [x/250 for x in ltb]
-diffltc = [x/250 for x in ltc]
-
-fig, ax1 = plt.subplots()
-ax2 = ax1.twinx()
-
-bars = [np.mean(ltaneed), np.mean(bneed), np.mean(ltbneed), np.mean(ltcneed)]
-bars2 = [(500-count7)/5, (500-count30)/5, (500-count60)/5, (500-count120)/5]
-plot1 = [np.mean(difflta), np.mean(diffb), np.mean(diffltb), np.mean(diffltc)]
-
-ax1.bar(np.arange(len(xsign)), bars, width, hatch='/', edgecolor='black', color='white', label='Need')
-ax1.bar(np.arange(len(xsign))+width, bars2, width, edgecolor='black', color='white', label='Time')
-ax2.plot(plot1, label='Ave.coveage')
-
-plt.xticks(np.arange(len(xsign))+width/2, xsign)
-
-ax1.legend(bbox_to_anchor=(1, 1.02), loc='best', borderaxespad=1.5, handlelength=3, fontsize=11)
-ax2.legend(bbox_to_anchor=(1.03, 0.9), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
-ax2.set_ylim([0.9, 1.1])
-# print(bars2)
-ax1.grid()
-plt.show()
+# width = 0.2
+# xsign = ['7', '30', '60', '120']
+#
+# lex7, lex30, lex60, lex120 = -1, -1, -1, -1
+# count7, count30, count60, count120 = 0, 0, 0, 0
+# for ex7, ex30, ex60, ex120 in zip(ltaget, bget, ltbget, ltcget):
+#     if ex7 == lex7:
+#         count7 += 1
+#         lex7 = ex7
+#     elif ex7 != lex7:
+#         lex7 = ex7
+#
+#     if ex30 == lex30:
+#         count30 += 1
+#         lex30 = ex30
+#     elif ex30 != lex30:
+#         lex30 = ex30
+#
+#     if ex60 == lex60:
+#         count60 += 1
+#         lex60 = ex60
+#     elif ex60 != lex60:
+#         lex60 = ex60
+#
+#     if ex120 == lex120:
+#         count120 += 1
+#         lex120 = ex120
+#     elif ex120 != lex120:
+#         lex120 = ex120
+#
+# difflta = [x/250 for x in lta]
+# diffb = [x/250 for x in b]
+# diffltb = [x/250 for x in ltb]
+# diffltc = [x/250 for x in ltc]
+#
+# fig, ax1 = plt.subplots()
+# ax2 = ax1.twinx()
+#
+# bars = [np.mean(ltaneed), np.mean(bneed), np.mean(ltbneed), np.mean(ltcneed)]
+# bars2 = [(500-count7)/5, (500-count30)/5, (500-count60)/5, (500-count120)/5]
+# plot1 = [np.mean(difflta), np.mean(diffb), np.mean(diffltb), np.mean(diffltc)]
+#
+# ax1.bar(np.arange(len(xsign)), bars, width, hatch='/', edgecolor='black', color='white', label='Need')
+# ax1.bar(np.arange(len(xsign))+width, bars2, width, edgecolor='black', color='white', label='Time')
+# ax2.plot(plot1, label='Ave.coveage')
+#
+# plt.xticks(np.arange(len(xsign))+width/2, xsign)
+#
+# ax1.legend(bbox_to_anchor=(1, 1.02), loc='best', borderaxespad=1.5, handlelength=3, fontsize=11)
+# ax2.legend(bbox_to_anchor=(1.03, 0.9), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
+# ax2.set_ylim([0.9, 1.1])
+# # print(bars2)
+# ax1.grid()
+# plt.show()
 # -------------------------------------------------------------
 # 第六/七組  人數不同 COVERAGE 不夠數量
 
@@ -571,59 +571,59 @@ plt.show()
 # plt.show()
 # -----------------------------------------------------------------
 # 第三組
-# x = np.arange(500)
-# #
-# # fig = plt.figure()
-# #
-# # ax1 = fig.add_axes([0.08, 0.7, 0.83, 0.25])
-# # ax3 = fig.add_axes([0.08, 0.38, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
-# # ax5 = fig.add_axes([0.08, 0.05, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
+x = np.arange(500)
 #
-# newdiff = [(x-500)/500 for x in a1]
-# newdiff3 = [(x-500)/500 for x in poib]
-# newdiff2 = [(x-500)/500 for x in cpc]
+# fig = plt.figure()
 #
-# # many bar
-# # ax1.bar(x, newdiff, hatch='', label='Difference', width=1)
-# # ax1.set_ylim([-0.2, 0.2])
-# #
-# # ax3.bar(x, newdiff3, label='Difference', width=1)
-# # ax3.set_ylim([-0.2, 0.2])
-# #
-# # ax5.bar(x, newdiff2, label='Difference', width=1)
-# # ax5.set_ylim([-0.2, 0.2])
+# ax1 = fig.add_axes([0.08, 0.7, 0.83, 0.25])
+# ax3 = fig.add_axes([0.08, 0.38, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
+# ax5 = fig.add_axes([0.08, 0.05, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
+
+newdiff = [(x-500)/500 for x in a1]
+newdiff3 = [(x-500)/500 for x in poib]
+newdiff2 = [(x-500)/500 for x in cpc]
+
+# many bar
+# ax1.bar(x, newdiff, hatch='', label='Difference', width=1)
+# ax1.set_ylim([-0.2, 0.2])
 #
-# # low bar
-# width = 0.2
-# xsign = ['Our', 'Poisson', 'Compare']
+# ax3.bar(x, newdiff3, label='Difference', width=1)
+# ax3.set_ylim([-0.2, 0.2])
 #
-# bars = [np.mean(newdiff), np.mean(newdiff3), np.mean(newdiff2)]
+# ax5.bar(x, newdiff2, label='Difference', width=1)
+# ax5.set_ylim([-0.2, 0.2])
+
+# low bar
+width = 0.2
+xsign = ['Our', 'Poisson', 'Compare']
+
+bars = [np.mean(newdiff), np.mean(newdiff3), np.mean(newdiff2)]
+
+plt.bar(np.arange(len(xsign)), bars, width, hatch=' ', edgecolor='black', color='white', label='Var')
+plt.gca().set_ylim([-0.15, 0.05])
+
+# ax1.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
+# vals = ax1.get_yticks()
+# ax1.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
 #
-# plt.bar(np.arange(len(xsign)), bars, width, hatch=' ', edgecolor='black', color='white', label='Var')
-# plt.gca().set_ylim([-0.15, 0.05])
+# ax3.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
+# vals = ax3.get_yticks()
+# ax3.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
 #
-# # ax1.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
-# # vals = ax1.get_yticks()
-# # ax1.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-# #
-# # ax3.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
-# # vals = ax3.get_yticks()
-# # ax3.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-# #
-# # ax5.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
-# # vals = ax5.get_yticks()
-# # ax5.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-#
-# plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(0.01))
-# vals = plt.gca().get_yticks()
-# plt.gca().set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-#
-# plt.xticks(np.arange(len(xsign)), xsign)
-#
-# # ax1.grid()
-# # ax3.grid()
-# # ax5.grid()
-# plt.grid()
-#
-# # plt.tight_layout()
-# plt.show()
+# ax5.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
+# vals = ax5.get_yticks()
+# ax5.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+
+plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(0.01))
+vals = plt.gca().get_yticks()
+plt.gca().set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+
+plt.xticks(np.arange(len(xsign)), xsign)
+
+# ax1.grid()
+# ax3.grid()
+# ax5.grid()
+plt.grid()
+
+# plt.tight_layout()
+plt.show()

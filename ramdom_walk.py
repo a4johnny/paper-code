@@ -21,7 +21,7 @@ class Man:
 
 
 def addman(areacount, user):
-    addn = random.randint(50, 60)  # 9000(2500-3000)
+    addn = random.randint(38, 45)  # 9000(2500-3000)
     for i in range(addn):
         u = Man(random.randint(0, 8), random.randint(0, 8), 11)
         u.area = areajudge(u)
