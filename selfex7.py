@@ -147,18 +147,18 @@ xxxxx1 = [(np.mean(a9000bn)-500)/500, (np.mean(a900bn)-50)/50, (np.mean(a90bn)-5
 xxxxx2 = [(np.mean(b9000bn)-500)/500, (np.mean(b900bn)-50)/50, (np.mean(b90bn)-5)/5]
 xxxxx3 = [(np.mean(c9000bn)-500)/500, (np.mean(c900bn)-50)/50, (np.mean(c90bn)-5)/5]
 
-h500 = [5, 6, 7, 5, 9]
-h50 = [16, 5, 5, 5, 5]
+h500 = [5, 6, 7, 5, 5]
+h50 = [10, 5, 5, 5, 5]
 l500 = [25, 26, 52, 36, 30]
 l50 = [53, 67, 30, 39, 30]
-p500 = [126, 44, 44]
+p500 = [106, 44, 44]
 p50 = [47, 125, 112]
-cp500 = [5, 30, 5, 5, 10, 5, 20, 35, 30, 5]
-cp50 = [10, 5, 5, 25, 35]
+cp500 = [5, 5, 5, 5, 10, 10, 10, 5, 5, 10]
+cp50 = [10, 10, 5, 5, 5, 10, 6, 6, 10, 5]
 
 # h = [np.mean(h500), np.mean(h50)]
 l = [np.mean(l500), np.mean(l50)]
-p = [round(np.mean(p500), 1), round(np.mean(p50), 1), round(np.mean(cp50))]
+p = [round(np.mean(h50), 1), round(np.mean(p50), 1), round(np.mean(cp50), 1)]
 
 h = [np.mean(h500), round(np.mean(p500), 1), round(np.mean(cp500), 1)]
 
@@ -167,7 +167,7 @@ fig, ax1 = plt.subplots()
 # ax2 = ax1.twinx()
 
 # 長條圖數值
-for x, y in enumerate(h):
+for x, y in enumerate(p):
     ax1.text(x/4, y+2, '%s'%y, ha='center')
 # for x, y in enumerate(l):
 #     ax1.text(x+width, y+2, '%s'%y, ha='center')
@@ -175,7 +175,7 @@ for x, y in enumerate(h):
 #     ax1.text(x+width*2, y+2, '%s'%y, ha='center')
 
 # 長條圖
-ax1.bar(np.arange(len(xsign3))/4, h, width, label='high', hatch='', color='white', edgecolor='black')
+ax1.bar(np.arange(len(xsign3))/4, p, width, label='high', hatch='', color='white', edgecolor='black')
 # ax1.bar(np.arange(len(xsign2)) + width, l, width, label='low', hatch='*', color='white', edgecolor='red')
 # ax1.bar(np.arange(len(xsign3)) + width*2, p, width, label='poisson', hatch='x', color='white', edgecolor='blue')
 
