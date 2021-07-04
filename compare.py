@@ -51,7 +51,7 @@ def init(user):
 
 
 if __name__ == '__main__':
-    needk = 1600
+    needk = 500
     coveragelist = []
     nmlist = []
     user, area = rw.userinit(9000)
@@ -69,7 +69,7 @@ if __name__ == '__main__':
             if i is 5:
                 nm += 1
 
-        coverage = nm/450
+        coverage = nm/100
         for iii in range(5):
             nmlist.append(nm)
             coveragelist.append(coverage)
