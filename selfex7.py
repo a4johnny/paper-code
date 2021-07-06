@@ -146,57 +146,75 @@ xxxx3 = [round(np.mean(c9000bn)-500, 1), round(np.mean(c900bn)-50, 1), round(np.
 xxxxx1 = [(np.mean(a9000bn)-500)/500, (np.mean(a900bn)-50)/50, (np.mean(a90bn)-5)/5]
 xxxxx2 = [(np.mean(b9000bn)-500)/500, (np.mean(b900bn)-50)/50, (np.mean(b90bn)-5)/5]
 xxxxx3 = [(np.mean(c9000bn)-500)/500, (np.mean(c900bn)-50)/50, (np.mean(c90bn)-5)/5]
+# ---------------------------------------------------------
 
-h500 = [5, 6, 7, 5, 5]
-h50 = [10, 5, 5, 5, 5]
-l500 = [25, 26, 52, 36, 30]
-l50 = [53, 67, 30, 39, 30]
-p500 = [106, 44, 44]
-p50 = [47, 125, 112]
-cp500 = [5, 5, 5, 5, 10, 10, 10, 5, 5, 10]
-cp50 = [10, 10, 5, 5, 5, 10, 6, 6, 10, 5]
+plots1 = [52.7, 80.0, 91.2]
+plots2 = [16, 36.5, 63.5]
+plots3 = [4.9, 5.0, 19.3]
 
-# h = [np.mean(h500), np.mean(h50)]
-l = [np.mean(l500), np.mean(l50)]
-p = [round(np.mean(h50), 1), round(np.mean(p50), 1), round(np.mean(cp50), 1)]
+xsign = ['500', '300', '100']
+plt.plot(plots1, '-o', label='Poisson', color='red')
+plt.plot(plots2, '--x', label='Compare')
+plt.plot(plots3, label='Our', color='black')
 
-h = [np.mean(h500), round(np.mean(p500), 1), round(np.mean(cp500), 1)]
-
-# 雙子圖
-fig, ax1 = plt.subplots()
-# ax2 = ax1.twinx()
-
-# 長條圖數值
-for x, y in enumerate(p):
-    ax1.text(x/4, y+2, '%s'%y, ha='center')
-# for x, y in enumerate(l):
-#     ax1.text(x+width, y+2, '%s'%y, ha='center')
-# for x, y in enumerate(p):
-#     ax1.text(x+width*2, y+2, '%s'%y, ha='center')
-
-# 長條圖
-ax1.bar(np.arange(len(xsign3))/4, p, width, label='high', hatch='', color='white', edgecolor='black')
-# ax1.bar(np.arange(len(xsign2)) + width, l, width, label='low', hatch='*', color='white', edgecolor='red')
-# ax1.bar(np.arange(len(xsign3)) + width*2, p, width, label='poisson', hatch='x', color='white', edgecolor='blue')
-
-# 折線圖
-# ax2.plot(xxx + width, xxxxx1, 'o--', label='PID')
-# ax2.plot(xxx + width, xxxxx2, '*--', label='Poisson')
-# ax2.plot(xxx + width, xxxxx3, 'x--', label='Coverage')
-
-# x軸間隔 和 x 軸數字
-plt.xticks(np.arange(len(xsign3))/4, xsign3)
-
-# 右上圖標
-# ax1.legend(bbox_to_anchor=(1, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
-# ax2.legend(bbox_to_anchor=(0.5, 1), loc='best')
-
-ax1.yaxis.set_major_locator(ticker.MultipleLocator(10))
-ax1.set_ylim([0, 100])
-
-# ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
-# ax2.set_ylim([-0.5, 0.5])
-
-ax1.grid()
-# ax2.grid()
+plt.xticks(np.arange(len(xsign)), xsign)
+plt.legend(bbox_to_anchor=(0.3, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
+plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(5))
+plt.grid()
 plt.show()
+
+# ---------------------------------------------------------
+# old 收斂圖
+# h500 = [5, 6, 7, 5, 5]
+# h50 = [10, 5, 5, 5, 5]
+# l500 = [25, 26, 52, 36, 30]
+# l50 = [53, 67, 30, 39, 30]
+# p500 = [106, 44, 44]
+# p50 = [47, 125, 112]
+# cp500 = [5, 5, 5, 5, 10, 10, 10, 5, 5, 10]
+# cp50 = [10, 10, 5, 5, 5, 10, 6, 6, 10, 5]
+#
+# # h = [np.mean(h500), np.mean(h50)]
+# l = [np.mean(l500), np.mean(l50)]
+# p = [round(np.mean(h50), 1), round(np.mean(p50), 1), round(np.mean(cp50), 1)]
+#
+# h = [np.mean(h500), round(np.mean(p500), 1), round(np.mean(cp500), 1)]
+#
+# # 雙子圖
+# fig, ax1 = plt.subplots()
+# # ax2 = ax1.twinx()
+#
+# # 長條圖數值
+# for x, y in enumerate(p):
+#     ax1.text(x/4, y+2, '%s'%y, ha='center')
+# # for x, y in enumerate(l):
+# #     ax1.text(x+width, y+2, '%s'%y, ha='center')
+# # for x, y in enumerate(p):
+# #     ax1.text(x+width*2, y+2, '%s'%y, ha='center')
+#
+# # 長條圖
+# ax1.bar(np.arange(len(xsign3))/4, p, width, label='high', hatch='', color='white', edgecolor='black')
+# # ax1.bar(np.arange(len(xsign2)) + width, l, width, label='low', hatch='*', color='white', edgecolor='red')
+# # ax1.bar(np.arange(len(xsign3)) + width*2, p, width, label='poisson', hatch='x', color='white', edgecolor='blue')
+#
+# # 折線圖
+# # ax2.plot(xxx + width, xxxxx1, 'o--', label='PID')
+# # ax2.plot(xxx + width, xxxxx2, '*--', label='Poisson')
+# # ax2.plot(xxx + width, xxxxx3, 'x--', label='Coverage')
+#
+# # x軸間隔 和 x 軸數字
+# plt.xticks(np.arange(len(xsign3))/4, xsign3)
+#
+# # 右上圖標
+# # ax1.legend(bbox_to_anchor=(1, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=15)
+# # ax2.legend(bbox_to_anchor=(0.5, 1), loc='best')
+#
+# ax1.yaxis.set_major_locator(ticker.MultipleLocator(10))
+# ax1.set_ylim([0, 100])
+#
+# # ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.05))
+# # ax2.set_ylim([-0.5, 0.5])
+#
+# ax1.grid()
+# # ax2.grid()
+# plt.show()
