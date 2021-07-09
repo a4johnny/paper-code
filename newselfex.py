@@ -25,57 +25,57 @@ cpc = [881, 881, 881, 881, 881, 506, 506, 506, 506, 506, 494, 494, 494, 494, 494
 
 # ---------------------------------------------------------------------------------
 # NEW 1
-# x = np.arange(500)
-#
-# fig = plt.figure()
-#
-# ax1 = fig.add_axes([0.08, 0.7, 0.83, 0.25])
-# ax3 = fig.add_axes([0.08, 0.38, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
-# ax5 = fig.add_axes([0.08, 0.05, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
-#
-# ax2 = ax1.twinx()
-# ax4 = ax3.twinx()
-# ax6 = ax5.twinx()
-#
-# ax1.plot(x, poib, '-.', label='Poisson', color='red')  # poia
-# ax1.set_ylim([350, 600])
-# ax2.set_ylim([-0.3, 0.2])
-#
-# ax3.plot(x, cpc, '--', label='Compare')  # cpd
-# ax3.set_ylim([350, 600])
-# ax4.set_ylim([-0.3, 0.2])
-#
-# ax5.plot(x, a3, label='Our', color='black')  # c  # a3
-# ax5.set_ylim([350, 600])
-# ax6.set_ylim([-0.3, 0.2])
-#
-# ax1.legend(bbox_to_anchor=(1, 1.22), loc='best', fontsize=9.5)
-# ax3.legend(bbox_to_anchor=(1, 0.3), loc='best')
-# ax5.legend(bbox_to_anchor=(1, 0.3), loc='best')
-#
-# ax1.yaxis.set_major_locator(ticker.MultipleLocator(50))
-# ax3.yaxis.set_major_locator(ticker.MultipleLocator(50))
-# ax5.yaxis.set_major_locator(ticker.MultipleLocator(50))
-#
-# ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
-# ax4.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
-# ax6.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
-#
-# vals = ax2.get_yticks()
-# ax2.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-#
-# vals = ax4.get_yticks()
-# ax4.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-#
-# vals = ax6.get_yticks()
-# ax6.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
-#
-# ax1.grid()
-# ax3.grid()
-# ax5.grid()
-#
-# # plt.tight_layout()
-# plt.show()
+x = np.arange(500)
+
+fig = plt.figure()
+
+ax1 = fig.add_axes([0.08, 0.7, 0.83, 0.25])
+ax3 = fig.add_axes([0.08, 0.38, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
+ax5 = fig.add_axes([0.08, 0.05, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
+
+ax2 = ax1.twinx()
+ax4 = ax3.twinx()
+ax6 = ax5.twinx()
+
+ax1.plot(x, poib, '-.', label='Poisson', color='red')  # poia
+ax1.set_ylim([350, 600])
+ax2.set_ylim([-0.3, 0.2])
+
+ax3.plot(x, cpc, '--', label='Reference[31]')  # cpd
+ax3.set_ylim([350, 600])
+ax4.set_ylim([-0.3, 0.2])
+
+ax5.plot(x, aa1, label='Probability model (Ave.Lifetime 30)', color='black')  # c  # a3
+ax5.set_ylim([350, 600])
+ax6.set_ylim([-0.3, 0.2])
+
+ax1.legend(bbox_to_anchor=(1, 1.22), loc='best', fontsize=9.5)
+ax3.legend(bbox_to_anchor=(1, 0.3), loc='best')
+ax5.legend(bbox_to_anchor=(1, 0.3), loc='best')
+
+ax1.yaxis.set_major_locator(ticker.MultipleLocator(50))
+ax3.yaxis.set_major_locator(ticker.MultipleLocator(50))
+ax5.yaxis.set_major_locator(ticker.MultipleLocator(50))
+
+ax2.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
+ax4.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
+ax6.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
+
+vals = ax2.get_yticks()
+ax2.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+
+vals = ax4.get_yticks()
+ax4.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+
+vals = ax6.get_yticks()
+ax6.set_yticklabels(['{:,.0%}'.format(x) for x in vals])
+
+ax1.grid()
+ax3.grid()
+ax5.grid()
+
+# plt.tight_layout()
+plt.show()
 # ---------------------------------------------------------
 # 9000-250 LT 10(15-5)
 lta = [0, 0.19599, 0.39199, 0.56399, 0.78799, 0.99199, 1.01599, 1.03999, 1.01999, 1.01599, 1.00799, 1.01199, 0.99199, 0.99999, 1.05599, 1.06799, 1.07199, 1.01599, 1.00799, 1.05999, 1.06399, 1.04799, 1.01199, 1.01199, 0.98399, 0.95999, 0.99599, 0.99199, 0.98399, 1.01599, 1.03199, 1.03599, 1.03599, 1.07199, 1.05199, 1.00799, 0.97599, 0.99999, 0.99999, 1.01599, 1.04799, 1.03999, 1.05199, 1.03599, 1.04799, 1.04799, 1.05999, 1.05199, 1.03599, 1.03599, 1.05599, 1.10799, 1.09599, 1.11599, 1.09599, 1.05599, 1.03199, 1.03599, 0.99599, 0.92399, 0.94799, 0.98399, 0.99199, 0.98399, 0.97999, 1.01599, 1.03999, 1.09199, 1.09999, 1.11199, 1.12399, 1.11999, 1.11999, 1.06399, 1.03999, 0.99199, 1.05999, 0.99199, 0.98399, 1.01599, 1.03599, 0.98799, 1.01199, 1.01199, 1.00799, 0.98399, 0.99599, 0.95199, 0.98799, 1.01599, 1.05599, 1.02799, 1.07199, 1.01199, 0.97599, 0.98399, 0.94799, 0.91199, 0.91599, 0.93999, 0.99199, 1.03599, 1.05199, 1.06399, 1.03599, 1.07599, 1.06799, 1.03999, 1.01599, 1.01999, 1.01199, 1.02399, 1.02399, 1.07199, 1.08799, 1.05999, 1.07599, 1.05199, 1.07999, 1.05599, 1.01599, 0.98799, 0.94799, 0.92799, 0.93999, 0.93199, 0.92799, 0.96799, 1.02799, 1.07599, 1.08399, 1.04399, 1.05199, 1.08399, 1.04799, 1.05999, 1.05199, 1.04399, 1.03999, 1.01999, 0.98399, 0.93199, 0.92799, 0.96799, 0.91999, 0.91599, 0.88799, 0.97199, 1.01599, 1.01199, 1.03599, 1.06799, 1.01999, 1.00399, 0.96799, 0.96799, 0.96799, 0.93999, 0.94799, 1.05199, 1.06399, 1.01999, 0.99599, 0.98799, 1.01599, 1.01599, 1.01599, 1.02399, 1.02399, 0.99199, 1.03199, 1.01199, 1.02399, 0.97999, 0.97599, 1.00399, 0.98399, 1.04399, 0.99599, 0.97999, 0.99199, 0.97999, 0.98399, 0.96399, 0.96799, 1.01999, 1.00799, 0.98399, 1.04799, 1.03199, 1.01599, 1.03199, 1.02399, 1.01999, 1.01199, 1.03999, 1.06399, 1.07599, 1.02399, 1.07599, 1.01999, 1.03199, 1.05999, 1.07599, 1.05999, 1.03999, 1.03599, 1.04799, 1.04799, 0.97999, 0.99199, 0.95199, 0.91599, 0.98399, 0.97599, 1.01599, 1.03999, 1.05199, 1.03599, 1.00399, 0.95999, 0.97999, 0.95599, 1.02399, 1.01999, 1.02799, 1.05999, 1.04399, 1.04799, 0.98799, 0.98799, 0.99999, 1.00399, 1.05999, 1.10799, 1.10799, 1.10799, 1.08399, 1.01599, 0.99999, 0.99199, 1.01199, 1.02799, 1.05599, 1.11599, 1.11199, 1.07999, 1.01199, 1.00799, 0.97999, 0.94399, 0.94399, 0.95599, 0.98399, 0.98799, 1.01999, 1.00399, 0.98399, 0.99999, 0.94799, 0.95199, 0.99199, 0.97599, 0.98799, 1.04399, 1.04399, 1.00799, 0.99599, 1.00799, 1.01599, 0.99199, 0.97599, 1.02799, 1.03599, 1.06399, 1.02799, 1.01999, 1.04399, 1.01599, 1.08799, 1.10399, 1.07999, 1.09599, 1.12399, 1.08799, 1.06799, 1.05199, 1.03999, 1.05599, 1.01599, 1.00799, 0.99999, 1.01199, 1.03199, 1.05999, 1.09999, 1.09599, 1.11199, 1.09999, 1.05999, 1.02799, 0.99999, 0.99599, 0.99599, 1.00399, 0.98399, 1.02799, 1.00799, 0.96399, 0.99999, 1.02799, 0.97999, 0.96399, 0.97999, 1.01199, 1.02399, 0.99599, 1.00399, 1.01199, 1.01999, 1.01199, 1.02799, 0.99599, 1.03199, 1.04799, 1.02399, 0.99999, 1.02799, 1.02799, 1.01599, 1.01199, 1.00399, 0.97999, 0.99599, 1.04399, 1.07599, 1.03599, 0.98399, 0.97599, 0.95999, 0.98399, 0.99999, 0.99999, 0.99599, 1.07599, 1.05199, 1.05999, 1.03599, 1.00799, 0.99999, 0.97599, 1.02399, 0.96799, 1.00399, 1.01199, 1.00799, 1.07599, 1.08399, 1.04399, 1.03999, 1.07999, 1.05199, 1.01999, 0.99599, 1.08799, 1.07999, 1.04799, 1.01999, 1.04399, 1.02799, 1.06799, 1.01199, 1.02799, 1.00399, 0.98799, 0.94799, 0.94799, 0.95999, 1.03199, 1.00399, 1.03999, 1.03999, 1.06399, 1.05599, 1.08399, 1.01999, 1.03599, 1.02399, 1.00799, 1.00799, 1.00399, 1.01999, 1.04399, 1.06399, 1.14399, 1.15199, 1.08799, 1.06799, 1.04799, 0.99599, 0.98399, 1.00799, 1.02799, 0.98799, 1.01599, 1.03599, 1.03599, 1.03599, 1.03999, 1.03999, 1.02799, 1.04799, 1.06799, 1.09999, 1.04399, 1.04399, 1.10799, 1.12399, 1.10799, 1.07999, 1.07999, 1.08799, 1.08399, 1.02399, 0.99199, 1.01199, 1.02399, 1.03599, 1.04799, 1.07599, 1.06799, 1.02399, 0.98799, 1.02799, 1.01199, 1.01999, 1.03999, 1.06799, 1.03599, 1.01199, 0.95599, 0.97199, 0.99999, 1.01999, 1.04399, 1.02399, 0.99199, 0.97999, 0.99199, 1.03999, 1.02799, 1.04399, 1.06799, 1.05599, 1.05999, 1.04799, 0.99199, 0.94399, 0.93199, 0.95599, 0.96399, 0.98799, 1.03199, 1.05999, 1.09999, 1.10799, 1.10799, 1.07199, 1.09599, 1.04799, 1.03599, 1.04399, 1.03199, 0.97199, 0.96399, 0.92399, 0.95199, 0.96799, 0.99999, 1.02799, 1.08399, 1.08799, 1.08799, 1.07999, 1.08399, 1.05999, 1.04399, 1.03999, 1.01199, 1.02399, 0.99999, 1.01599, 1.03199, 1.03199, 1.02399, 1.05199, 1.02799, 1.03599, 1.03199, 1.05999]
@@ -105,78 +105,78 @@ ltdneed = [50.0, 50.0, 50.0, 50.0, 50.0, 2.89, 2.89, 2.89, 2.89, 2.89, 0.0, 0.0,
 # NEW 7
 # 第七組  lifetime不同 平均需求量
 
-width = 0.2
-xsign = ['10', '30', '50', '70', '90']
-
-lex7, lex30, lex60, lex120, lex90 = -1, -1, -1, -1, -1
-count7, count30, count60, count120, count90 = 0, 0, 0, 0, 0
-for ex7, ex30, ex60, ex120, ex90 in zip(ltaget, bget, ltbget, ltcget, ltdget):
-    if ex7 == lex7:
-        count7 += 1
-    elif ex7 != lex7:
-        lex7 = ex7
-
-    if ex30 == lex30:
-        count30 += 1
-    elif ex30 != lex30:
-        lex30 = ex30
-
-    if ex60 == lex60:
-        count60 += 1
-    elif ex60 != lex60:
-        lex60 = ex60
-
-    if ex120 == lex120:
-        count120 += 1
-    elif ex120 != lex120:
-        lex120 = ex120
-
-    if ex90 == lex90:
-        count90 += 1
-    elif ex90 != lex90:
-        lex90 = ex90
-
-# fig, ax1 = plt.subplots()
-# ax2 = ax1.twinx()
-
-fig = plt.figure()
-
-ax1 = fig.add_axes([0.08, 0.7, 0.83, 0.25])
-ax3 = fig.add_axes([0.08, 0.38, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
-ax5 = fig.add_axes([0.08, 0.05, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
-
-x = np.arange(500)
-
-bars = [np.mean(ltaneed), np.mean(bneed), np.mean(ltbneed), np.mean(ltcneed), np.mean(ltdneed)]
-bars2 = [(500-count7)/5, (500-count30)/5, (500-count60)/5, (500-count120)/5, (500-count90)/5]
-plots = [np.mean(lta), np.mean(b), np.mean(ltb), np.mean(ltc), np.mean(ltd)]
-
-ax1.plot(bars2, label='Num of collected cycle')
-ax3.plot(bars, label='Num of collected data (per timeslot)')
-ax5.bar(np.arange(len(xsign)), plots, width, edgecolor='black', label='Coverage')
-
-ax1.set_xticks(np.arange(len(xsign)))
-ax1.set_xticklabels(xsign)
-ax3.set_xticks(np.arange(len(xsign)))
-ax3.set_xticklabels(xsign)
-ax5.set_xticks(np.arange(len(xsign)))
-ax5.set_xticklabels(xsign)
-
-ax1.yaxis.set_major_locator(ticker.MultipleLocator(20))
-ax1.set_ylim([0, 100])
-ax3.yaxis.set_major_locator(ticker.MultipleLocator(5))
-ax5.yaxis.set_major_locator(ticker.MultipleLocator(0.01))
-ax5.set_ylim([0.98, 1.04])
-
-ax1.legend(bbox_to_anchor=(1, 1.105), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
-ax3.legend(bbox_to_anchor=(1, 1.105), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
-ax5.legend(bbox_to_anchor=(1, 1.11), loc='best', borderaxespad=1.5, handlelength=3, fontsize=8.5)
-# print(bars2)
-
-ax1.grid()
-ax3.grid()
-ax5.grid()
-plt.show()
+# width = 0.2
+# xsign = ['10', '30', '50', '70', '90']
+#
+# lex7, lex30, lex60, lex120, lex90 = -1, -1, -1, -1, -1
+# count7, count30, count60, count120, count90 = 0, 0, 0, 0, 0
+# for ex7, ex30, ex60, ex120, ex90 in zip(ltaget, bget, ltbget, ltcget, ltdget):
+#     if ex7 == lex7:
+#         count7 += 1
+#     elif ex7 != lex7:
+#         lex7 = ex7
+#
+#     if ex30 == lex30:
+#         count30 += 1
+#     elif ex30 != lex30:
+#         lex30 = ex30
+#
+#     if ex60 == lex60:
+#         count60 += 1
+#     elif ex60 != lex60:
+#         lex60 = ex60
+#
+#     if ex120 == lex120:
+#         count120 += 1
+#     elif ex120 != lex120:
+#         lex120 = ex120
+#
+#     if ex90 == lex90:
+#         count90 += 1
+#     elif ex90 != lex90:
+#         lex90 = ex90
+#
+# # fig, ax1 = plt.subplots()
+# # ax2 = ax1.twinx()
+#
+# fig = plt.figure()
+#
+# ax1 = fig.add_axes([0.08, 0.7, 0.83, 0.25])
+# ax3 = fig.add_axes([0.08, 0.38, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
+# ax5 = fig.add_axes([0.08, 0.05, 0.83, 0.25])  # (左右位置, 上下位置, 左右長度, 上下長度)
+#
+# x = np.arange(500)
+#
+# bars = [np.mean(ltaneed), np.mean(bneed), np.mean(ltbneed), np.mean(ltcneed), np.mean(ltdneed)]
+# bars2 = [(500-count7)/5, (500-count30)/5, (500-count60)/5, (500-count120)/5, (500-count90)/5]
+# plots = [np.mean(lta), np.mean(b), np.mean(ltb), np.mean(ltc), np.mean(ltd)]
+#
+# ax1.plot(bars2, label='Num of collected cycle')
+# ax3.plot(bars, label='Num of collected data (per timeslot)')
+# ax5.bar(np.arange(len(xsign)), plots, width, edgecolor='black', label='Coverage')
+#
+# ax1.set_xticks(np.arange(len(xsign)))
+# ax1.set_xticklabels(xsign)
+# ax3.set_xticks(np.arange(len(xsign)))
+# ax3.set_xticklabels(xsign)
+# ax5.set_xticks(np.arange(len(xsign)))
+# ax5.set_xticklabels(xsign)
+#
+# ax1.yaxis.set_major_locator(ticker.MultipleLocator(20))
+# ax1.set_ylim([0, 100])
+# ax3.yaxis.set_major_locator(ticker.MultipleLocator(5))
+# ax5.yaxis.set_major_locator(ticker.MultipleLocator(0.01))
+# ax5.set_ylim([0.98, 1.04])
+#
+# ax1.legend(bbox_to_anchor=(1, 1.105), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
+# ax3.legend(bbox_to_anchor=(1, 1.105), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
+# ax5.legend(bbox_to_anchor=(1, 1.11), loc='best', borderaxespad=1.5, handlelength=3, fontsize=8.5)
+# # print(bars2)
+#
+# ax1.grid()
+# ax3.grid()
+# ax5.grid()
+# plt.show()
 # ---------------------------------------------------------
 # 9000-250 LT 30(35-25)
 # b
