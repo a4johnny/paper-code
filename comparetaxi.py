@@ -66,7 +66,7 @@ def init(user, time):
 
 
 if __name__ == '__main__':
-    needk = 200
+    needk = 1100
     coveragelist = []
     nmlist = []
     user = rw.start()
@@ -79,7 +79,7 @@ if __name__ == '__main__':
             if i is 1:
                 nm += 1
 
-        coverage = nm/200
+        coverage = nm/500
         nmlist.append(nm)
         coveragelist.append(coverage)
         print('coverage:', coverage, 'time:', time, len(user[time+1].areal))

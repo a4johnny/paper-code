@@ -148,17 +148,17 @@ xxxxx2 = [(np.mean(b9000bn)-500)/500, (np.mean(b900bn)-50)/50, (np.mean(b90bn)-5
 xxxxx3 = [(np.mean(c9000bn)-500)/500, (np.mean(c900bn)-50)/50, (np.mean(c90bn)-5)/5]
 # ---------------------------------------------------------
 
-plots1 = [52.7, 80.0, 91.2]
-plots2 = [16, 36.5, 63.5]
-plots3 = [4.9, 5.0, 19.3]
+plots1 = [91.2, 75.5, 80.0, 50, 52.7]
+plots2 = [63.5, 38, 36.5, 11, 16]
+plots3 = [19.3, 5.0, 5.0, 5.0, 4.9]
 
-xsign = ['500', '300', '100']
+xsign = ['100', '200', '300', '400', '500']
 plt.plot(plots1, '-o', label='Poisson', color='red')
-plt.plot(plots2, '--x', label='Compare')
-plt.plot(plots3, label='Our', color='black')
+plt.plot(plots2, '--x', label='Reference[31]')
+plt.plot(plots3, label='Probability model', color='black')
 
 plt.xticks(np.arange(len(xsign)), xsign)
-plt.legend(bbox_to_anchor=(0.3, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
+plt.legend(bbox_to_anchor=(0.6, 1), loc='best', borderaxespad=1.5, handlelength=3, fontsize=10)
 plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(5))
 plt.grid()
 plt.show()

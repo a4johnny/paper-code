@@ -45,7 +45,7 @@ ax3.plot(x, cpc, '--', label='Reference[31]')  # cpd
 ax3.set_ylim([350, 600])
 ax4.set_ylim([-0.3, 0.2])
 
-ax5.plot(x, aa1, label='Probability model (Ave.Lifetime 30)', color='black')  # c  # a3
+ax5.plot(x, aa1, label='Probability model (Ave.Lifetime 5)', color='black')  # c  # a3
 ax5.set_ylim([350, 600])
 ax6.set_ylim([-0.3, 0.2])
 
@@ -201,7 +201,7 @@ b20need = [50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.32, 1.32, 1.
 # 第七組  lifetime分布不同 平均需求量
 
 # width = 0.2
-# xsign = ['25-35(±10)', '20-40(±20)', '15-45(±30)', '10-50(±40)']
+# xsign = ['±10', '±20', '±30', '±40']
 #
 # lex7, lex30, lex60, lex120 = -1, -1, -1, -1
 # count7, count30, count60, count120 = 0, 0, 0, 0
